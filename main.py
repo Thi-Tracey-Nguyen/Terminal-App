@@ -1,29 +1,51 @@
-from spellchecker import SpellChecker
+# from spellchecker import SpellChecker
 import random
 import itertools
 dictionary = open("dic.txt").read().splitlines()
 
-# spell = SpellChecker()
-# x = bool(spell.known('battle'))
-# print(x)
-
-char = ['a', 's', 'h', 'e', 'r', 'o']
-list_words_to_test = []
-s = ''.join(char)
-# print(s)
-
-# random_number = random.randint(2, len(s))
-
-# print(random_number)
-t = list(itertools.permutations(s,5))
-# print(t)
-for i in range(0,len(t)):
-    list_words_to_test.append(''.join(t[i]))
 # print(list_words_to_test)
 
-meaningful_words = []
-for word in list_words_to_test:
-    if word.upper() in dictionary: 
-        meaningful_words.append(word)
+# Iterate through words in the words_to_check list and check them against the dictionary
 
-print(meaningful_words)
+
+# def is_english_word_non_set():
+#     meaningful_words = []
+#     for word in list_words_to_test:
+#         if word.upper() in dictionary: 
+#             meaningful_words.append(word)
+#     return meaningful_words
+
+# print(is_english_word_non_set())
+
+char = ['p', 'r', 'o', 'u', 'd', 'e']
+# char = ['c', 'a', 't', 's']
+list_words_to_test = []
+
+# # random_number = random.randint(2, len(s))
+
+# # print(random_number)
+t = list(itertools.permutations(char,len(char)))
+# print(t)
+for i in range(len(t)):
+    list_words_to_test.append(''.join(t[i]))
+
+# Test using words in a set
+with open("dic.txt") as word_file:
+    english_words = set(word.strip() for word in word_file)
+
+def is_english_word():
+    meaningful_words = []
+    for word in list_words_to_test:
+        if word.upper() in english_words: 
+            meaningful_words.append(word)
+    return meaningful_words
+
+print(is_english_word())
+
+
+# Testing spellchecker 
+
+# spell = SpellChecker()
+# # spell.word_frequency.load_text_file('dic_fake.txt')
+# x = spell.known(['hat', 'water', 'mouse', 'chair', 'hanger', 'dsfsd', 'asdfas', 'asdfasd'])
+# print(x)
