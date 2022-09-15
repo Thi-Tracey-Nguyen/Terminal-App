@@ -17,6 +17,14 @@ dictionary = open("dic.txt").read().splitlines()
 
 # print(is_english_word_non_set())
 
+# Testing spellchecker 
+
+# spell = SpellChecker()
+# # spell.word_frequency.load_text_file('dic_fake.txt')
+# x = spell.known(['hat', 'water', 'mouse', 'chair', 'hanger', 'dsfsd', 'asdfas', 'asdfasd'])
+# print(x)
+
+
 char = ['p', 'r', 'o', 'u', 'd', 'e']
 # char = ['c', 'a', 't', 's']
 list_words_to_test = []
@@ -43,9 +51,3 @@ def is_english_word():
 print(is_english_word())
 
 
-# Testing spellchecker 
-
-# spell = SpellChecker()
-# # spell.word_frequency.load_text_file('dic_fake.txt')
-# x = spell.known(['hat', 'water', 'mouse', 'chair', 'hanger', 'dsfsd', 'asdfas', 'asdfasd'])
-# print(x)
