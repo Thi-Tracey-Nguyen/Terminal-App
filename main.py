@@ -93,22 +93,27 @@ def verify_word(word, rack):
         _bool_: true if the word uses only words from the rack AND it is a valid English word. false if any of the conditions is false.
     """    
     word_split = list(word)
+    false_letters = set()
     for letter in word_split:
-        if letter in rack: 
-            continue
+        if letter not in rack: 
+            false_letters.add(letter)
+    if len(false_letters) == 0:
+        if is_english_word(word):
+            print(f'Well play! {word} is an excellent choice. ') 
+            return word
         else: 
-            print(f'{letter} is not in your rack. Try again. ')
-    if is_english_word(word):
-        print(f'{word} is an excellent choice. ') 
-        return word
+            print(f'{word}??? It isn\'t a valid English word. Try again. ')
+            return False
     else: 
-        print(f'{word}??? It isn\'t a valid English word. Try again. ')
+        print(f'{false_letters} is not in your rack. Try again. ')
+        return False
 
 def human_player_turn():
-    human_word = input('It\'s your turn. Play a valid English word. ').upper()
+    human_word = input('>>>').upper()
     return human_word
 
 def human_player(human_rack):
+    print("""It's your turn. Goodluck!\nPlay a valid English word.""")
     while True: 
         human_word = human_player_turn()
         verified = verify_word(human_word, human_rack) 
@@ -133,14 +138,17 @@ def game_play():
     greetings()
     human_rack = deal_tiles()
     computer_rack = deal_tiles()
-    print(f'Your rack is: {human_rack}')
-    print(f'Computer rack: {computer_rack}')
+    
     for i in range(1,8):
-        print(f'Round {i} ') 
+        print(f'Round {i} ')
+        print(f'Your rack is: {human_rack}')
+        print(f'Computer rack is: {computer_rack}')
         human_word = human_player(human_rack)
         calculate_points(human, human_word)
         remove_tiles(human_word, human_rack)
         computer_word = computer_play(computer_rack)
         calculate_points(computer, computer_word)
+        remove_tiles(computer_word, computer_rack)
+        print('------------------------------')
 
 game_play()

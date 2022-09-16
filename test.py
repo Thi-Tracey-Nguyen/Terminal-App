@@ -57,12 +57,20 @@ with open("dic.txt") as word_file:
 tile_bag = ['A', 'G', 'A', 'R', 'H', 'I', 'M']
 rack = ['A', 'G', 'A', 'R']
 
-def remove_tiles(tile_list, collection): 
-    if type(tile_list) == str: 
-        tile_list = list(tile_list)
-    for tile in tile_list: 
-        collection.remove(tile)
-    return collection
+def is_english_word(player_word):
+    if player_word.upper() in english_words:
+        return player_word.upper()
 
-l = remove_tiles(rack, tile_bag)
-print(l)
+def verify_word(word, rack):
+    word_split = list(word)
+    for letter in word_split:
+        if letter not in rack: 
+            print(f'{letter} is not in your rack. Try again. ')
+            break
+    if is_english_word(word):
+      print(f'Well play! {word} is an excellent choice. ') 
+      return word_split
+    else: 
+      print(f'{word}??? It isn\'t a valid English word. Try again. ')
+
+verify_word('AGAR', rack)
