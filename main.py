@@ -1,8 +1,10 @@
 import random
 import itertools
-from numpy import random as npr
+from numpy.random import choice
 
 # dictionary = open("dic.txt").read().splitlines()
+human = 'You'
+computer = 'Computer'
 
 
 with open("dic.txt") as word_file:
@@ -19,7 +21,8 @@ def tile_probability():
     Returns:
         _dict_: name of tile and its associated probability
     """  
-    return {letter : tile_bag[letter] / 100 for letter in tile_bag.keys()}
+    total_number_of_tiles = sum(tile_bag.values())
+    return {letter : tile_bag[letter] / total_number_of_tiles for letter in tile_bag.keys()}
 
 letter_probabilities = tile_probability()
 
@@ -34,7 +37,7 @@ def deal_tiles():
     """    
     letters = [key for key in letter_probabilities.keys()]
     probabilities = [value for value in letter_probabilities.values()]
-    rack = npr.choice(letters, 7,p=probabilities, replace=False)
+    rack = choice(letters, 7,p=probabilities, replace=False)
     return list(rack)
 
 player_rack = deal_tiles()
@@ -58,7 +61,7 @@ def is_english_word(player_word):
 
 # print(is_english_word(x))
 
-def calculate_points(word):
+def calculate_points(player, word):
     """This function calculates points based on the word played
 
     Args:
@@ -68,7 +71,8 @@ def calculate_points(word):
     """   
     points = 0
     for i in range(len(word)): 
-        points += letter_values[word[i]] 
+        points += letter_values[word[i]]
+    print(f'{player} earned {points} points.') 
     return points
 
 def greetings(): 
@@ -78,36 +82,65 @@ def greetings():
     - play a valid english word
     ''')
 
-def human_player():
-    while True: 
-        human_player_word = input('It\'s your turn. Play a valid English word. ').upper()
-        human_player_word_valid = is_english_word(human_player_word)
-        if human_player_word_valid: 
-            print(f'Well played! {human_player_word} is an excellent choice.\nYou earned {calculate_points(human_player_word)} points.')
-            break
-        else: 
-            print(f'{human_player_word}?? It\'s not a valid word. Try again. ')
-    return human_player_word
+def verify_word(word, rack):
+    """This function checks if a word only contains letters from the rack AND if it is a valid English word
 
+    Args:
+        word (_str_): the word to be checked
+        rack (_list_): the rack where tiles are used from
+    
+    Returns: 
+        _bool_: true if the word uses only words from the rack AND it is a valid English word. false if any of the conditions is false.
+    """    
+    word_split = list(word)
+    for letter in word_split:
+        if letter in rack: 
+            continue
+        else: 
+            print(f'{letter} is not in your rack. Try again. ')
+    if is_english_word(word):
+        print(f'{word} is an excellent choice. ') 
+        return word
+    else: 
+        print(f'{word}??? It isn\'t a valid English word. Try again. ')
+
+def human_player_turn():
+    human_word = input('It\'s your turn. Play a valid English word. ').upper()
+    return human_word
+
+def human_player(human_rack):
+    while True: 
+        human_word = human_player_turn()
+        verified = verify_word(human_word, human_rack) 
+        if verified: 
+            return human_word
 # Computer play: 
 def computer_play(player_rack): 
     for word in shuffle_letters(player_rack): 
-      if is_english_word(word): 
+      if is_english_word(word):
+        print(f'Computer plays {word}.')
         return word
 
+# Removing tiles
+def remove_tiles(small_collection, large_collection): 
+    if type(small_collection) == str: 
+        small_collection = list(small_collection)
+    for tile in small_collection: 
+        large_collection.remove(tile)
+    return large_collection
 
 def game_play(): 
     greetings()
-    human_player_rack = deal_tiles()
+    human_rack = deal_tiles()
     computer_rack = deal_tiles()
-    print(f'Your rack is: {human_player_rack}')
+    print(f'Your rack is: {human_rack}')
     print(f'Computer rack: {computer_rack}')
     for i in range(1,8):
         print(f'Round {i} ') 
-        human_player()
+        human_word = human_player(human_rack)
+        calculate_points(human, human_word)
+        remove_tiles(human_word, human_rack)
         computer_word = computer_play(computer_rack)
-        print(f'Computer\'s word is: {computer_word}')
-        computer_points = calculate_points(computer_word)
-        print(f'Computer earned {computer_points} points')
+        calculate_points(computer, computer_word)
 
 game_play()
