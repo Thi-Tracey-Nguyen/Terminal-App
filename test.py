@@ -5,28 +5,30 @@ import itertools
 with open("dic.txt") as word_file:
     english_words = set(word.strip() for word in word_file)
 
-rack = ['d', 'o', 's', 'a', 'g', 'e']
-
-# for i in range(7): 
-#     random_letter = random.choice(string.ascii_uppercase)
-#     rack.append(random_letter)
-
-print(rack)
-
-list_words_to_test = []
+player_rack = ['Y', 'T', 'N', 'O', 'E', 'V', 'H']
+# group_number = random.randint(2, 6)
 group_number = 5
-t = list(itertools.permutations(rack, group_number))
-for i in range(len(t)):
-  list_words_to_test.append(''.join(t[i]))
+print(group_number)
 
-# print(t)
-# print(list_words_to_test)
+def shuffle_letters():
+    words_to_test= []
+    # group_number = random.randint(2, 6)
+    # print(group_number)
+    t = list(itertools.permutations(player_rack, group_number))
+    for i in range(len(t)):
+        words_to_test.append(''.join(t[i]))
+    return words_to_test
 
-def is_english_word():
-  meaningful_words = []
-  for word in list_words_to_test:
-    if word.upper() in english_words:
-      meaningful_words.append(word.upper())
-  return meaningful_words
+x = shuffle_letters()
+# print(x)
 
-print(is_english_word())
+def is_english_word(player_word):
+    if player_word in english_words:
+        return True
+
+def computer_play(): 
+    for word in x: 
+      if is_english_word(word): 
+        return word
+
+print(computer_play())
