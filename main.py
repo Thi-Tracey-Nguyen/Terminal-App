@@ -10,9 +10,9 @@ computer = 'Computer'
 with open("dic.txt") as word_file:
     english_words = set(word.strip() for word in word_file)
 
-letter_values = {"A": 1, "B": 3, "C": 3, "D": 2, "E": 1, "F": 4, "G": 2, "H": 4, "I": 1, "J": 1, "K": 5, "L": 1, "M": 3, "N": 1, "O": 1, "P": 3, "Q": 10, "R": 1, "S": 1, "T": 1, "U": 1, "V": 4, "W": 4, "X": 8, "Y": 4, "Z": 10, "#": 0}
+letter_values = {"A": 1, "B": 3, "C": 3, "D": 2, "E": 1, "F": 4, "G": 2, "H": 4, "I": 1, "J": 1, "K": 5, "L": 1, "M": 3, "N": 1, "O": 1, "P": 3, "Q": 10, "R": 1, "S": 1, "T": 1, "U": 1, "V": 4, "W": 4, "X": 8, "Y": 4, "Z": 10}
 
-tile_bag = {"A": 9, "B": 2, "C": 2, "D": 4, "E": 12, "F": 2, "G": 3, "H": 2, "I": 9, "J": 1, "K": 1, "L": 4, "M": 2, "N": 6, "O": 8, "P": 2, "Q": 1, "R": 6, "S": 4, "T": 6, "U": 4, "V": 2, "W": 2, "X": 1, "Y": 2, "Z": 1, "#": 2}
+tile_bag = {"A": 9, "B": 2, "C": 2, "D": 4, "E": 12, "F": 2, "G": 3, "H": 2, "I": 9, "J": 1, "K": 1, "L": 4, "M": 2, "N": 6, "O": 9, "P": 2, "Q": 1, "R": 6, "S": 4, "T": 6, "U": 4, "V": 2, "W": 2, "X": 1, "Y": 3, "Z": 1}
 
 
 def tile_probability():
@@ -29,20 +29,20 @@ letter_probabilities = tile_probability()
 group_number = 4
 print(group_number)
 
-def deal_tiles(): 
+def deal_tiles(rack): 
     """This function randomly deals 5 tiles for each player propotionally to the tile's probalibily
 
+    Args: 
+        rack(_list_): whose rack to deal tiles to 
+        
     Returns:
-        __str__: name of tiles
+        __list__: player's rack 
     """    
     letters = [key for key in letter_probabilities.keys()]
     probabilities = [value for value in letter_probabilities.values()]
-    rack = choice(letters, 7,p=probabilities, replace=False)
+    number_of_tiles = 7 - len(rack) 
+    rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
     return list(rack)
-
-player_rack = deal_tiles()
-# print(player_rack)
-
 
 def shuffle_letters(player_rack):
     words_to_test= []
@@ -72,7 +72,7 @@ def calculate_points(player, word):
     points = 0
     for i in range(len(word)): 
         points += letter_values[word[i]]
-    print(f'{player} earned {points} points.') 
+    # print(f'{player} earned {points} points.') 
     return points
 
 def greetings(): 
@@ -132,6 +132,19 @@ def verify_word(word, rack):
         print('Try again.')
         return False
 
+def replenish(rack): 
+    """This function replishes a player's rack after each round
+
+    Args:
+        rack (_list_): partially used player's rack 
+
+    Returns:
+        rack (_list_): fully-stocked player's rack
+    """    
+    number_of_tiles = 7 - len(rack)
+    new_tiles = deal_tiles(rack)
+    return new_tiles
+
 def human_player_turn():
     human_word = input('>>>').upper()
     return human_word
@@ -160,19 +173,29 @@ def remove_tiles(small_collection, large_collection):
 
 def game_play(): 
     greetings()
-    human_rack = deal_tiles()
-    computer_rack = deal_tiles()
-    
+    human_rack = []
+    human_points = 0
+    computer_rack = []
+    computer_points = 0
+
     for i in range(1,8):
         print(f'Round {i} ')
+        print(f'Your current points are: {human_points}')
+        print(f'Computer\'s current points are: {computer_points}')
+        human_rack += deal_tiles(human_rack)
+        computer_rack += deal_tiles(computer_rack)
         print(f'Your rack is: {human_rack}')
         print(f'Computer rack is: {computer_rack}')
         human_word = human_player(human_rack)
-        calculate_points(human, human_word)
+        earned_points = calculate_points(human, human_word)
+        print(f'You earned {earned_points} points.')
         remove_tiles(human_word, human_rack)
+        human_points += earned_points
         computer_word = computer_play(computer_rack)
-        calculate_points(computer, computer_word)
+        earned_points = calculate_points(computer, computer_word)
+        print(f'Computer earned {earned_points} points.')
         remove_tiles(computer_word, computer_rack)
+        computer_points += earned_points
         print('------------------------------')
 
 game_play()

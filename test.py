@@ -1,3 +1,4 @@
+import numbers
 import random
 import string
 import itertools
@@ -11,121 +12,72 @@ tile_bag = {"A": 9, "B": 2, "C": 2, "D": 4, "E": 12, "F": 2, "G": 3, "H": 2, "I"
 with open("dic.txt") as word_file:
     english_words = set(word.strip() for word in word_file)
 
-# player_rack = ['E', 'P', 'I', 'H', 'G', 'N', 'D']
-# # group_number = random.randint(2, 6)
-# group_number = 5
-# print(group_number)
-
-# def shuffle_letters():
-#     words_to_test= []
-#     # group_number = random.randint(2, 6)
-#     # print(group_number)
-#     t = list(itertools.permutations(player_rack, group_number))
-#     for i in range(len(t)):
-#         words_to_test.append(''.join(t[i]))
-#     return words_to_test
-
-# x = shuffle_letters()
-# print(x)
-
-# def is_english_word(player_word):
-#     if player_word in english_words:
-#         return True
-
-# def computer_play(): 
-#     for word in x: 
-#       if is_english_word(word): 
-#         return word
-
-# print(computer_play())
-
-# def calculate_points(word):
-#     """This function calculates points based on the word played
-
-#     Args:
-#         word (_str_): word played by the player
-#     Returns:
-#         _int_: points
-#     """   
-#     points = 0
-#     for i in range(len(word)): 
-#         points += letter_values[word[i]] 
-#     return points
-
-# print(calculate_points(SANE))
-
-tile_bag = ['A', 'G', 'A', 'R', 'H', 'I', 'M']
-rack = ['A', 'G', 'A', 'R']
-
-def is_english_word(player_word):
-    if player_word.upper() in english_words:
-        return player_word.upper()
-
-def verify_word(word, rack):
-    word_split = list(word)
-    # rack_letter_count = {word[i] : rack.count(word[i]) for i in range(len(word)-1)}
-    # print(rack_tile_count)
-    for letter in word_split:
-        if letter not in rack: 
-            print(f'{letter} is not in your rack. Try again. ')
-            break
-    if is_english_word(word):
-      print(f'Well play! {word} is an excellent choice. ') 
-      return True
-    else: 
-      print(f'{word}??? It isn\'t a valid English word. Try again. ')
-
-# verify_word('AGAR', rack)
-
-rack = ['B', 'A', 'N', 'A']
-
-word = 'BANANA' 
-
-verify_word(word, rack)
-
-
-
-def check_within_rack(word, rack):
-    """This function checks if all letters in a word are in the player's rack taking into account how many of each letter there is in the rack
-
-    Args:
-        word (_type_): player's word
-        rack (_type_): player's rack
+def tile_probability():
+    """This function calculates probabilities of each tile in the bag 
 
     Returns:
-        _bool_: True if the word used only letters in the rack and do not exceed the available number of each letter
+        _dict_: name of tile and its associated probability
+    """  
+    total_number_of_tiles = sum(tile_bag.values())
+    return {letter : tile_bag[letter] / total_number_of_tiles for letter in tile_bag.keys()}
+
+letter_probabilities = tile_probability()
+
+# def deal_tiles(number_of_tiles): 
+#     """This function randomly deals 5 tiles for each player propotionally to the tile's probalibily
+
+#     Args: 
+#         number_of_tiles(_int_): how many tiles to deal
+
+#     Returns:
+#         __str__: name of tiles
+#     """    
+#     letters = [key for key in letter_probabilities.keys()]
+#     probabilities = [value for value in letter_probabilities.values()]
+#     rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
+#     return list(rack)
+
+# def replenish(rack): 
+#     """This function replishes a player's rack after each round
+
+#     Args:
+#         rack (_list_): partially used player's rack 
+
+#     Returns:
+#         rack (_list_): fully-stocked player's rack
+#     """    
+#     number_of_tiles = 7 - len(rack)
+#     new_tiles = deal_tiles(number_of_tiles)
+#     new_rack = rack + new_tiles
+#     return new_rack
+
+# player_rack = ['B', 'U', 'S', 'H']
+
+# player_rack = player_rack + replenish(player_rack)
+
+# print(player_rack)
+
+def deal_tiles(rack): 
+    """This function randomly deals 5 tiles for each player propotionally to the tile's probalibily
+
+    Args: 
+        rack(_list_): whose rack to deal tiles to 
+        
+    Returns:
+        __list__: player's rack 
     """    
-    false_letters_invalid = set()
-    false_letters_too_many = set()
-    rack_letter_count = {word[i] : rack.count(word[i]) for i in range(len(word))}
-    for i in range(len(word)):
-        if word[i] not in rack:
-            false_letters_invalid.add(word[i])
-        elif rack_letter_count[word[i]] > 0: 
-            rack_letter_count[word[i]] -= 1
-        else: 
-            false_letters_too_many.add(word[i])
-    if not false_letters_too_many and not false_letters_invalid: 
-        return True
-    else: 
-        if false_letters_invalid: 
-            print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
-        if false_letters_too_many: 
-            print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!') 
-        return False
+    letters = [key for key in letter_probabilities.keys()]
+    probabilities = [value for value in letter_probabilities.values()]
+    number_of_tiles = 7 - len(rack) 
+    rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
+    return list(rack)
 
+human_rack = ['A', 'M']
+computer_rack = []
 
+x = deal_tiles(human_rack)
+print(deal_tiles(computer_rack))
+print(x)
 
-def verify_word(word, rack):
-    if check_within_rack(word, rack):
-        if is_english_word(word):
-            print(f'Well play! {word} is an excellent choice.') 
-            return word
-        else: 
-            print(f'{word}??? It isn\'t a valid English word. Try again.')
-            return False
-    else: 
-        print('Try again.')
-        return False
-
-x = verify_word(word, rack)
+human_rack += x
+print(human_rack)
