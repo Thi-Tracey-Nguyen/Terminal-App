@@ -14,6 +14,11 @@ letter_values = {"A": 1, "B": 3, "C": 3, "D": 2, "E": 1, "F": 4, "G": 2, "H": 4,
 
 tile_bag = {"A": 9, "B": 2, "C": 2, "D": 4, "E": 12, "F": 2, "G": 3, "H": 2, "I": 9, "J": 1, "K": 1, "L": 4, "M": 2, "N": 6, "O": 9, "P": 2, "Q": 1, "R": 6, "S": 4, "T": 6, "U": 4, "V": 2, "W": 2, "X": 1, "Y": 3, "Z": 1}
 
+negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t you?', 'Is that all you got?', 'Lame effort. Hahaha', 'I thought you were better than that.']
+
+positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder the people of Fancy Town think so highly of you', 'Well played!', 'A worthy opponent!']
+
+trick_bags = ['shuffle', 'double_score', 'triple_score', 'confundo']
 
 def tile_probability():
     """This function calculates probabilities of each tile in the bag 
@@ -27,7 +32,6 @@ def tile_probability():
 letter_probabilities = tile_probability()
 
 group_number = 4
-print(group_number)
 
 def deal_tiles(rack): 
     """This function randomly deals 5 tiles for each player propotionally to the tile's probalibily
@@ -82,6 +86,18 @@ def greetings():
     - play a valid english word
     ''')
 
+def response(type):
+    """This function picks a random response from a list
+
+    Args:
+        type (_list_): collection of phrases
+
+    Returns:
+        _int_: a phrase chosen at random
+    """    
+    print(random.choice(type))
+ 
+
 def check_within_rack(word, rack):
     """This function checks if all letters in a word are in the player's rack taking into account how many of each letter there is in the rack
 
@@ -123,12 +139,15 @@ def verify_word(word, rack):
     """    
     if check_within_rack(word, rack):
         if is_english_word(word):
-            print(f'Well play! {word} is an excellent choice.') 
+            response(positive)
+            print(f'{word} is an excellent choice.') 
             return word
         else: 
-            print(f'{word}??? It isn\'t a valid English word. Try again.')
+            response(negative)
+            print(f'{word} isn\'t a valid English word. Try again.')
             return False
-    else: 
+    else:
+        response(negative) 
         print('Try again.')
         return False
 
@@ -171,31 +190,48 @@ def remove_tiles(small_collection, large_collection):
         large_collection.remove(tile)
     return large_collection
 
-def game_play(): 
-    greetings()
-    human_rack = []
-    human_points = 0
-    computer_rack = []
-    computer_points = 0
+class Player():
+    def __init__(self, name):
+        self.name = name
+        self.rack = rack
+        self.score = score
 
-    for i in range(1,8):
-        print(f'Round {i} ')
-        print(f'Your current points are: {human_points}')
-        print(f'Computer\'s current points are: {computer_points}')
-        human_rack += deal_tiles(human_rack)
-        computer_rack += deal_tiles(computer_rack)
-        print(f'Your rack is: {human_rack}')
-        print(f'Computer rack is: {computer_rack}')
-        human_word = human_player(human_rack)
-        earned_points = calculate_points(human, human_word)
-        print(f'You earned {earned_points} points.')
-        remove_tiles(human_word, human_rack)
-        human_points += earned_points
-        computer_word = computer_play(computer_rack)
-        earned_points = calculate_points(computer, computer_word)
-        print(f'Computer earned {earned_points} points.')
-        remove_tiles(computer_word, computer_rack)
-        computer_points += earned_points
-        print('------------------------------')
 
-game_play()
+    def __str__(self):
+        return f'Player is {self.name}.'
+
+    def play(self):
+        pass
+
+
+
+
+# def game_play(): 
+#     greetings()
+#     human_rack = []
+#     human_points = 0
+#     computer_rack = []
+#     computer_points = 0
+
+#     for i in range(1,8):
+#         print(f'Round {i} ')
+#         print(f'Your current points are: {human_points}')
+#         print(f'Computer\'s current points are: {computer_points}')
+#         human_rack += deal_tiles(human_rack)
+#         computer_rack += deal_tiles(computer_rack)
+#         print(f'Your rack is: {human_rack}')
+#         print(f'Computer rack is: {computer_rack}')
+#         human_word = human_player(human_rack)
+#         earned_points = calculate_points(human, human_word)
+#         print(f'You earned {earned_points} points.')
+#         remove_tiles(human_word, human_rack)
+#         human_points += earned_points
+#         computer_word = computer_play(computer_rack)
+#         earned_points = calculate_points(computer, computer_word)
+#         print(f'Computer earned {earned_points} points.')
+#         remove_tiles(computer_word, computer_rack)
+#         computer_points += earned_points
+#         print('------------------------------')
+
+# game_play()
+print(letter_probabilities)
