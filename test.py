@@ -2,8 +2,6 @@ import random
 import itertools
 from numpy.random import choice
 
-from main import tile_probability
-
 # dictionary = open("dic.txt").read().splitlines()
 human = 'You'
 computer = 'Computer'
@@ -27,10 +25,10 @@ trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
 class Character():
     __available_characters = ['Human', 'The Kid', 'The Word Master']
 
-    def __init__(self, name, points=0, rack=[]):
+    def __init__(self, name):
         self.name = name
-        self.points = points
-        self.rack = rack
+        self.points = 0
+        self.rack = []
 
     def __repr__(self): 
         return f'Player(name={self.name}, points={self.points}, rack={self.rack})'
@@ -44,24 +42,111 @@ class Character():
         return character in cls.__available_characters
 
 class Human(Character):
-    def __init__(self, name, points=0, rack=[], trick_bag=['Skip', 'DP', 'TP', 'Hint', 'Confundo']):
-        super().__init__(name, points, rack=rack)
-        self.trick_bag = trick_bag
-
-    def play(self):
-        pass
-
-class Computer(Character):
-    def __init__(self, name, word_length, points=0, rack=[]):
-        super().__init__(name, points, rack=rack)
-        self.word_length = word_length
+    def __init__(self, name):
+        super().__init__(name)
+        self.trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
 
     def play(self):
         human_word = input('>>>').upper()
         return human_word
+
+class Computer(Character):
+    def __init__(self, name):
+        super().__init__(name)
+        if self.name == 'The Kid': 
+            self.word_length = [2, 3, 4]
+        else: 
+            self.word_length = [6, 7]
         
-kid = Computer('The Kid', [2, 3, 4])
-master = Computer('The Master', [5, 6, 7])
+
+    def shuffle_letters(self, rack, group_number):
+        words_to_test= []
+        group_number = random.choice[self.word_length]
+        t = list(itertools.permutations(rack, group_number))
+        for i in range(len(t)):
+            words_to_test.append(''.join(t[i]))
+        return words_to_test
+    
+    def play(self):
+        word_options = self.shuffle_letters(self.rack, self.word_length)
+        for word in word_options: 
+            if word in english_words:
+                return word
+
+    def response_positive(self):
+        """This function picks a random response to the opponent's word from a list of positive responses
+
+        Returns:
+            _int_: a phrase chosen at random
+        """    
+        return random.choice(positive)
+    
+    def response_negative(self):
+        """This function picks a random response to the opponent's word from a list of negative responses
+
+        Returns:
+            _int_: a phrase chosen at random
+        """    
+        return random.choice(negative)
+    
+
+class Word: 
+    def __init__(self, word):
+        self.word = word
+    
+    def verify(self, rack):
+        """This function checks if a word only contains letters from the rack AND if it is a valid English word
+
+        Args:
+            word (_str_): the word to be checked
+            rack (_list_): the rack where tiles are used from
+        
+        Returns: 
+            _bool_: true if the word uses only words from the rack AND it is a valid English word. false if any of the conditions is false.
+        """    
+        false_letters_invalid = set()
+        false_letters_too_many = set()
+        rack_letter_count = {self.word[i] : rack.count(self.word[i]) for i in range(len(self.word))}
+        for i in range(len(self.word)):
+            if self.word[i] not in rack:
+                false_letters_invalid.add(self.word[i])
+            elif rack_letter_count[self.word[i]] > 0: 
+                rack_letter_count[self.word[i]] -= 1
+            else: 
+                false_letters_too_many.add(self.word[i])
+        if not false_letters_too_many and not false_letters_invalid: 
+            if self.word.upper() in english_words:
+                print(f'{self.word} is an excellent choice.') 
+                return self.word
+            else: 
+                print(f'{self.word} isn\'t a valid English word. Try again.')
+                return False
+        else: 
+            if false_letters_invalid: 
+                print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
+            if false_letters_too_many: 
+                print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!')
+            print('Try again.') 
+            return False
+
+
+class Actions:
+    def __init__(self, name):
+        self.name = name
+        
+    def response(self, word):
+        """This function picks a random response to the opponent's word from a list depending on whether the word is correct or not
+
+        Args:
+            word (_str_): opponent's word
+
+        Returns:
+            _int_: a phrase chosen at random
+        """    
+        if Game.verify_word(word, rack):
+            print(random.choice(positive))
+        else: 
+            print(random.choice(tone))
 
 class Game: 
     def __init__(self): 
@@ -100,44 +185,6 @@ class Game:
         number_of_tiles = 7 - len(rack) 
         rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
         return list(rack)
-    @classmethod
-    def verify_word(cls, word, rack):
-        """This function checks if a word only contains letters from the rack AND if it is a valid English word
-
-        Args:
-            word (_str_): the word to be checked
-            rack (_list_): the rack where tiles are used from
-        
-        Returns: 
-            _bool_: true if the word uses only words from the rack AND it is a valid English word. false if any of the conditions is false.
-        """    
-        false_letters_invalid = set()
-        false_letters_too_many = set()
-        rack_letter_count = {word[i] : rack.count(word[i]) for i in range(len(word))}
-        for i in range(len(word)):
-            if word[i] not in rack:
-                false_letters_invalid.add(word[i])
-            elif rack_letter_count[word[i]] > 0: 
-                rack_letter_count[word[i]] -= 1
-            else: 
-                false_letters_too_many.add(word[i])
-        if not false_letters_too_many and not false_letters_invalid: 
-            if word.upper() in english_words:
-                response(positive)
-                print(f'{word} is an excellent choice.') 
-                return word
-            else: 
-                response(negative)
-                print(f'{word} isn\'t a valid English word. Try again.')
-                return False
-        else: 
-            if false_letters_invalid: 
-                print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
-            if false_letters_too_many: 
-                print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!')
-            response(negative) 
-            print('Try again.') 
-            return False
 
     def calculate_points(self, word):
         """This function calculates points based on the word played
@@ -151,82 +198,21 @@ class Game:
         for i in range(len(word)): 
             points += letter_values[word[i]]
         return points
-    
-class Word: 
-    def __init__(self, word):
-        self.word = word
-    
-    def verify_word(self, word, rack):
-        """This function checks if a word only contains letters from the rack AND if it is a valid English word
 
-        Args:
-            word (_str_): the word to be checked
-            rack (_list_): the rack where tiles are used from
-        
-        Returns: 
-            _bool_: true if the word uses only words from the rack AND it is a valid English word. false if any of the conditions is false.
-        """    
-        false_letters_invalid = set()
-        false_letters_too_many = set()
-        rack_letter_count = {word[i] : rack.count(word[i]) for i in range(len(word))}
-        for i in range(len(word)):
-            if word[i] not in rack:
-                false_letters_invalid.add(word[i])
-            elif rack_letter_count[word[i]] > 0: 
-                rack_letter_count[word[i]] -= 1
-            else: 
-                false_letters_too_many.add(word[i])
-        if not false_letters_too_many and not false_letters_invalid: 
-            if word.upper() in english_words:
-                response(positive)
-                print(f'{word} is an excellent choice.') 
-                return word
-            else: 
-                response(negative)
-                print(f'{word} isn\'t a valid English word. Try again.')
-                return False
-        else: 
-            if false_letters_invalid: 
-                print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
-            if false_letters_too_many: 
-                print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!')
-            response(negative) 
-            print('Try again.') 
-            return False
+    def play(self):
+        self.greetings()
 
+human_rack = ['G', 'A', 'M', 'E']
 
-class Actions:
-    def __init__(self, name):
-        self.name = name
-        
-    def shuffle_letters(self, rack, group_number):
-        words_to_test= []
-        t = list(itertools.permutations(rack, group_number))
-        for i in range(len(t)):
-            words_to_test.append(''.join(t[i]))
-        return words_to_test
-
-    def response(self, word):
-        """This function picks a random response to the opponent's word from a list depending on whether the word is correct or not
-
-        Args:
-            word (_str_): opponent's word
-
-        Returns:
-            _int_: a phrase chosen at random
-        """    
-        if Game.verify_word(word, rack):
-            print(random.choice(positive))
-        else: 
-            print(random.choice(tone))
-
-
+human_word = Word('GAME')
+human_word.verify(human_rack)
 
 human = Character('Human')
-kid = Character('Kid')
-master = Character('Word Master')
+kid = Computer('Kid')
 
-kid.word_length = [2, 3, 4]
-master.word_length = [5, 6, 7]
+master = Computer('Word Master')
+print(master.response_positive())
 
-print(master)
+game = Game()
+game.play()
+
