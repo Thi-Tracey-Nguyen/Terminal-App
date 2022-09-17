@@ -2,6 +2,8 @@ import random
 import itertools
 from numpy.random import choice
 
+from main import human_player_turn
+
 # dictionary = open("dic.txt").read().splitlines()
 human = 'You'
 computer = 'Computer'
@@ -31,11 +33,11 @@ class Character():
         self.rack = []
 
     def __repr__(self): 
-        return f'Player(name={self.name}, points={self.points}, rack={self.rack})'
+        return self.name
 
 
     def __str__(self):
-        return f'The {self.name}\'s points are {self.points}, rack={self.rack}'
+        return self.name
 
     @classmethod
     def is_valid_character(cls, character): 
@@ -45,6 +47,7 @@ class Human(Character):
     def __init__(self, name):
         super().__init__(name)
         self.trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
+
 
     def play(self):
         human_word = input('>>>').upper()
@@ -79,7 +82,7 @@ class Computer(Character):
         Returns:
             _int_: a phrase chosen at random
         """    
-        return random.choice(positive)
+        print(random.choice(positive))
     
     def response_negative(self):
         """This function picks a random response to the opponent's word from a list of negative responses
@@ -87,7 +90,7 @@ class Computer(Character):
         Returns:
             _int_: a phrase chosen at random
         """    
-        return random.choice(negative)
+        print(random.choice(negative))
     
 
 class Word: 
@@ -159,8 +162,23 @@ class Game:
         - play a valid english word
         ''')
 
-    def announce(self): 
-        return "It's your turn. Goodluck!\nPlay a valid English word."
+    def announce_rack(self, player):
+        if player.name == 'Human':
+            print(f'Your rack is: {player.rack}')
+        else: 
+            print(f'{player.name} rack is: {player.rack}')
+
+    def announce_turn(self):
+        print("It's your turn. Goodluck!\nPlay a valid English word.")
+
+    def choose_character(self): 
+        self.char_1 = 'Human'
+        self.char_2 = input('Choose your opponet: ').title()
+        return [self.char_1, self.char_2]
+
+    def get_word(self):
+        human_input_word = input('>>>').upper()
+        return human_input_word
 
     def tile_probability(self):
         """This function calculates probabilities of each tile in the bag 
@@ -171,7 +189,7 @@ class Game:
         total_number_of_tiles = sum(tile_bag.values())
         return {letter : tile_bag[letter] / total_number_of_tiles for letter in tile_bag.keys()}
 
-    def deal_tiles(self, rack): 
+    def deal_tiles(self, player): 
         """This function randomly deals tiles for each player propotionally to the tile's probalibily. Number of tiles is 7 for first play and after each play, it is the difference between 7 and what's left in the rack
 
         Args: 
@@ -179,12 +197,13 @@ class Game:
             
         Returns:
             __list__: player's rack 
-        """    
-        letters = [key for key in self.tile_probability().keys()]
-        probabilities = [value for value in self.tile_probability().values()]
-        number_of_tiles = 7 - len(rack) 
-        rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
-        return list(rack)
+        """   
+        player = Character(player)
+        letters = list(self.tile_probability().keys())
+        probabilities = list(self.tile_probability().values())
+        number_of_tiles = 7 - len(player.rack) 
+        player.rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
+        return list(player.rack)
 
     def calculate_points(self, word):
         """This function calculates points based on the word played
@@ -201,17 +220,32 @@ class Game:
 
     def play(self):
         self.greetings()
+        player_choice = self.choose_character()
+        characters = []
+        for player in player_choice:
+            if player == 'Human': 
+                human_player = Human(player)
+                characters.append(human_player)
+            else: 
+                computer_player = Computer(player)
+                characters.append(computer_player)
+        print(characters)
+        for i in range(1, 8):
+            print('Round ', i)
+            for player in characters:
+                player.rack += self.deal_tiles(player)
+                self.announce_rack(player)
+            self.announce_turn()
+            while True:
+                human_word = self.get_word()
+                word = Word(human_word)
+                is_verified = word.verify(human_player.rack)
+                if is_verified:
+                    computer_player.response_positive()
+                    return
+                else: 
+                    computer_player.response_negative()
 
-human_rack = ['G', 'A', 'M', 'E']
-
-human_word = Word('GAME')
-human_word.verify(human_rack)
-
-human = Character('Human')
-kid = Computer('Kid')
-
-master = Computer('Word Master')
-print(master.response_positive())
 
 game = Game()
 game.play()
