@@ -82,6 +82,35 @@ def greetings():
     - play a valid english word
     ''')
 
+def check_within_rack(word, rack):
+    """This function checks if all letters in a word are in the player's rack taking into account how many of each letter there is in the rack
+
+    Args:
+        word (_type_): player's word
+        rack (_type_): player's rack
+
+    Returns:
+        _bool_: True if the word used only letters in the rack and do not exceed the available number of each letter
+    """    
+    false_letters_invalid = set()
+    false_letters_too_many = set()
+    rack_letter_count = {word[i] : rack.count(word[i]) for i in range(len(word))}
+    for i in range(len(word)):
+        if word[i] not in rack:
+            false_letters_invalid.add(word[i])
+        elif rack_letter_count[word[i]] > 0: 
+            rack_letter_count[word[i]] -= 1
+        else: 
+            false_letters_too_many.add(word[i])
+    if not false_letters_too_many and not false_letters_invalid: 
+        return True
+    else: 
+        if false_letters_invalid: 
+            print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
+        if false_letters_too_many: 
+            print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!') 
+        return False
+
 def verify_word(word, rack):
     """This function checks if a word only contains letters from the rack AND if it is a valid English word
 
@@ -92,20 +121,15 @@ def verify_word(word, rack):
     Returns: 
         _bool_: true if the word uses only words from the rack AND it is a valid English word. false if any of the conditions is false.
     """    
-    word_split = list(word)
-    false_letters = set()
-    for letter in word_split:
-        if letter not in rack: 
-            false_letters.add(letter)
-    if len(false_letters) == 0:
+    if check_within_rack(word, rack):
         if is_english_word(word):
-            print(f'Well play! {word} is an excellent choice. ') 
+            print(f'Well play! {word} is an excellent choice.') 
             return word
         else: 
-            print(f'{word}??? It isn\'t a valid English word. Try again. ')
+            print(f'{word}??? It isn\'t a valid English word. Try again.')
             return False
     else: 
-        print(f'{false_letters} is not in your rack. Try again. ')
+        print('Try again.')
         return False
 
 def human_player_turn():
