@@ -2,8 +2,6 @@ import random
 import itertools
 from numpy.random import choice
 
-from main import human_player_turn
-
 # dictionary = open("dic.txt").read().splitlines()
 human = 'You'
 computer = 'Computer'
@@ -54,22 +52,13 @@ class Human(Character):
         return human_word
 
 class Computer(Character):
-    __kid_name_options = ['kid', 'the kid']
-    __master_name_options = ['master', 'the master', 'word master', 'the word master']
-
+    
     def __init__(self, name):
         super().__init__(name)
-        if name.lower() in kid_name_options:
-            self.name = 'The Kid'
-        elif name.lower() in master_name_options:
-            self.name = 'The Word Master'
-        else: 
-            print('Invalid character')
         if self.name == 'The Kid': 
             self.word_length = [2, 3, 4]
         else: 
             self.word_length = [5, 6, 7]
-        
 
     def shuffle_letters(self):
         words_to_test= []
@@ -162,10 +151,16 @@ class Game:
     def announce_turn(self):
         print("It's your turn. Goodluck!\nPlay a valid English word.")
 
-    def choose_character(self): 
-        self.char_1 = 'Human'
-        self.char_2 = input('Choose your opponet: ').title()
-        return [self.char_1, self.char_2]
+    def choose_character(self):
+        kid_name_options = ['kid', 'the kid']
+        master_name_options = ['master', 'the master', 'word master', 'the word master'] 
+        player_choice = input('Choose your opponet: ').title()
+        if player_choice in kid_name_options: 
+            return 'The Kid'
+        elif player_choice in master_name_options:
+            return 'The Word Master'
+        else: 
+            return None
 
     def get_word(self):
         human_input_word = input('>>>').upper()
@@ -217,16 +212,24 @@ class Game:
 
     def play(self):
         self.greetings()
-        player_choice = self.choose_character()
-        characters = []
-        for player in player_choice:
-            if player == 'Human': 
-                human_player = Human(player)
-                characters.append(human_player)
-            else: 
-                computer_player = Computer(player)
-                characters.append(computer_player)
-        print(characters)
+        human_player = Human('Human')
+        players = [human_player]
+        while True: 
+            player_choice = self.choose_character()
+            if Computer(player_choice):
+                computer_player = Computer(player_choice)
+                players.append(computer_player)
+                break
+        
+        # for player in player_choice:
+        #     if player == 'Human': 
+        #         human_player = Human(player)
+        #         characters.append(human_player)
+        #     else: 
+        #         while True:
+        #         computer_player = Computer(player)
+        #         characters.append(computer_player)
+        # print(characters)
         # print(computer_player)
         # for i in range(1, 8):
         #     print('Round ', i)
