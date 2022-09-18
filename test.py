@@ -20,6 +20,10 @@ negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t
 
 positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder the people of Fancy Town think so highly of you', 'Well played!', 'A worthy opponent!']
 
+encourge = ['Now give it another go', 'Your are better than that', 'Don\'t give up!']
+
+skip = ['I\'ll have to skip', 'I don\'t know, this is too much for me!', 'Hmmmm... I have no answers']
+
 trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
 
 class Character():
@@ -52,7 +56,6 @@ class Human(Character):
         return human_word
 
 class Computer(Character):
-    
     def __init__(self, name):
         super().__init__(name)
         if self.name == 'The Kid': 
@@ -69,28 +72,27 @@ class Computer(Character):
         return words_to_test
     
     def play(self):
-        word_options = self.shuffle_letters()
-        for word in word_options: 
-            if word in english_words:
-                return f'{self.name} played {word}'
+        for i in range(0, 2):
+            word_options = self.shuffle_letters()
+            for word in word_options: 
+                if word in english_words:
+                    print(f'{self.name} played {word}')
+                    return word
 
-    def response_positive(self):
+    def response(self, tone):
         """This function picks a random response to the opponent's word from a list of positive responses
 
         Returns:
             _int_: a phrase chosen at random
         """    
-        print(random.choice(positive))
+        if tone == 'positive':
+            print(random.choice(positive))
+        elif tone == 'negative': 
+            print(random.choice(negative))
+            print('Try again.')
+        else: 
+            print(random.choice(skip))
     
-    def response_negative(self):
-        """This function picks a random response to the opponent's word from a list of negative responses
-
-        Returns:
-            _int_: a phrase chosen at random
-        """    
-        print(random.choice(negative))
-    
-
 class Word: 
     def __init__(self, word):
         self.word = word
@@ -120,14 +122,13 @@ class Word:
                 print(f'{self.word} is an excellent choice.') 
                 return self.word
             else: 
-                print(f'{self.word} isn\'t a valid English word. Try again.')
+                print(f'{self.word} isn\'t a valid English word.')
                 return False
         else: 
             if false_letters_invalid: 
                 print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
             if false_letters_too_many: 
                 print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!')
-            print('Try again.') 
             return False
 
         
@@ -136,29 +137,68 @@ class Game:
         pass
 
     def greetings(self): 
-        print('''Hello! Welcome to Word Play! here are some rules: 
-        - you can skip
-        - you can get a hint
-        - play a valid english word
+        print('''Hello! Welcome to Word Play! You are a word enthusiast from Fancy Town and it is your life goal to take on the Dark Lord who has been terrorizing your village for quite some times. The Dark Lord is powerful and evil, however, his ego is his weakness. You plan to challenge him to a Guess the Word game and beat him in public. 
+
+        To prepare yourself for the big battle, you come to the town's Word Master to ask for his opinion. His grandson, The Kid, is cheeky and smart, he sometimes interupts people who come to see his grandfather. 
+
+
+        Choose your oponent: 
+        - The Kid is fast but he plays mostly short words
+        - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but once his words are intricate. 
+        - Random to let the computer choose for you.
         ''')
+
+    def announce_player(self, player):
+        if player.name == 'The Kid':
+            print('The kid just run in from outside. He will play with you!')
+        else: 
+            print('The Word Master just roused from a siesta. He will take you on.')
 
     def announce_rack(self, player):
         if player.name == 'Human':
             print(f'Your rack is: {player.rack}')
         else: 
-            print(f'{player.name} rack is: {player.rack}')
+            print(f"{player.name}' rack is: {player.rack}")
 
     def announce_turn(self):
         print("It's your turn. Goodluck!\nPlay a valid English word.")
 
+    def announce_scores(self, list_of_players):
+        s = "'s"
+        for player in list_of_players:
+            print(f"{player.name + s if player.name != 'Human' else 'Your'} {'point is' if player.points <= 0 else 'points are'}: {player.points}.", end = ' ')
+        if list_of_players[0].points == list_of_players[1].points == 0: 
+            print('Let\'s begin.')
+        elif list_of_players[0].points == list_of_players[1].points: 
+            print('It\'s a tie.')
+        elif list_of_players[0].points > list_of_players[1].points: 
+            print('You are in front.')
+        else: 
+            print(f'{list_of_players[1]} is in front.')
+
+    def announce_end(self, list_of_players):
+        s = "'s"
+        for player in list_of_players:
+            print(f"{player.name + s if player.name != 'Human' else 'Your'} {'point is' if player.points <= 0 else 'points are'}: {player.points}.", end = ' ')
+        print('\n')
+        if list_of_players[0].points == list_of_players[1].points: 
+            print('It\'s a tie. Well done! With a little more training, you will be ready to take on the Dark Lord.')
+        elif list_of_players[0].points > list_of_players[1].points: 
+            print('You won! I have never met such a competent player. You are ready to battle Dark Lord.')
+        else: 
+            print('Solid effort. But you are not ready yet. Go back and train some more.')
+
     def choose_character(self):
         kid_name_options = ['kid', 'the kid']
         master_name_options = ['master', 'the master', 'word master', 'the word master'] 
-        player_choice = input('Choose your opponet: ').title()
+        player_choice = input('Choose your opponet: ').lower()
+        choices = ['The Kid', 'The Word Master']
         if player_choice in kid_name_options: 
             return 'The Kid'
         elif player_choice in master_name_options:
             return 'The Word Master'
+        elif player_choice == 'random':
+            return random.choice(choices)
         else: 
             return None
 
@@ -186,8 +226,8 @@ class Game:
         """   
         letters = list(self.tile_probability().keys())
         probabilities = list(self.tile_probability().values())
-        number_of_tiles = 7 - len(player.rack) 
-        player.rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
+        # number_of_tiles = 7 - len(player.rack) 
+        player.rack = choice(letters, 7,p=probabilities, replace=False)
         return list(player.rack)
 
     def remove_tiles(self, small_collection, large_collection): 
@@ -206,8 +246,9 @@ class Game:
             _int_: points
         """   
         points = 0
-        for i in range(len(word)): 
-            points += letter_values[word[i]]
+        word = word.strip().upper()
+        for letter in word:
+            points += letter_values[letter]
         return points
 
     def play(self):
@@ -216,41 +257,36 @@ class Game:
         players = [human_player]
         while True: 
             player_choice = self.choose_character()
-            if Computer(player_choice):
+            if player_choice: 
                 computer_player = Computer(player_choice)
                 players.append(computer_player)
                 break
-        
-        # for player in player_choice:
-        #     if player == 'Human': 
-        #         human_player = Human(player)
-        #         characters.append(human_player)
-        #     else: 
-        #         while True:
-        #         computer_player = Computer(player)
-        #         characters.append(computer_player)
-        # print(characters)
-        # print(computer_player)
-        # for i in range(1, 8):
-        #     print('Round ', i)
-        #     for player in characters:
-        #         player.rack += self.deal_tiles(player)
-        #         self.announce_rack(player)
-        #     self.announce_turn()
-        #     while True:
-        #         human_word = self.get_word()
-        #         word = Word(human_word)
-        #         is_verified = word.verify(human_player.rack)
-        #         if is_verified:
-        #             self.remove_tiles(word.word, human_player.rack)
-        #             print(human_player.rack)
-        #             break
-        #     if is_verified:
-        #         computer_player.response_positive()
-        #     else: 
-        #         computer_player.response_negative()
-        #     print(computer_player.play())
-
+        self.announce_player(computer_player)
+        for i in range(1, 8):
+            print('Round ', i)
+            self.announce_scores(players)
+            for player in players:
+                player.rack = self.deal_tiles(player)
+                self.announce_rack(player)
+            self.announce_turn()
+            while True:
+                human_word = self.get_word().strip()
+                word = Word(human_word)
+                is_verified = word.verify(human_player.rack)
+                if is_verified:
+                    human_player.points += self.calculate_points(human_word)
+                    computer_player.response('positive')
+                    break
+                else:
+                    computer_player.response('negative')
+            computer_word = computer_player.play()
+            if not computer_word: 
+                computer_player.response('skip')
+            else: 
+                print(computer_word)
+                computer_player.points += self.calculate_points(computer_word)
+            print('------------------------------------------------------------')
+        self.announce_end(players)
 
 game = Game()
 game.play()

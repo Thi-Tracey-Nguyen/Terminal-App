@@ -1,4 +1,5 @@
-import test
+import random 
 
-test.game.play()
+choices = ['kid', 'master']
 
+print(random.choice(choices))
