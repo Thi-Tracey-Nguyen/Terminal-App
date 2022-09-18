@@ -51,9 +51,13 @@ class Human(Character):
         self.trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
 
 
-    def play(self):
-        human_word = input('>>>').upper()
-        return human_word
+    # def play(self):
+    #     human_input = Game.get_input(self, '>>>>')
+    #     if human_input == '\skip': 
+    #         print('YOu chose to skip')
+    #     else: 
+    #         human_word = human_input
+    #         return human_word.upper()
 
 class Computer(Character):
     def __init__(self, name):
@@ -131,6 +135,13 @@ class Word:
                 print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!')
             return False
 
+class InvalidInput(Exception):
+    def __init__(self):
+        super().__init__(self)
+
+class KeyboardInterupt(Exception):
+    def __init__(self):
+        super().__init__(self)
         
 class Game: 
     def __init__(self): 
@@ -148,9 +159,25 @@ class Game:
         - Random to let the computer choose for you.
         ''')
 
+    def get_input(self, prompt): 
+        input_value = input(prompt).lower()
+        if input_value == '\quit': 
+            raise KeyboardInterrupt
+        elif input_value == '\help':
+            self.get_help()
+        return input_value
+
+    
+    def get_help(self): 
+        print("""Valid keyboard inputs are:
+        * \Help to see this message again
+        * \Quit to quit at any point of the game
+        * \Trick to see the trick bag
+        """)
+
     def announce_player(self, player):
         if player.name == 'The Kid':
-            print('The kid just run in from outside. He will play with you!')
+            print('The Kid just run in from outside. He will play with you!')
         else: 
             print('The Word Master just roused from a siesta. He will take you on.')
 
@@ -188,10 +215,10 @@ class Game:
         else: 
             print('Solid effort. But you are not ready yet. Go back and train some more.')
 
-    def choose_character(self):
+    def choose_character(self): 
         kid_name_options = ['kid', 'the kid']
         master_name_options = ['master', 'the master', 'word master', 'the word master'] 
-        player_choice = input('Choose your opponet: ').lower()
+        player_choice = str(self.get_input('Choose your opponet: ')).lower()
         choices = ['The Kid', 'The Word Master']
         if player_choice in kid_name_options: 
             return 'The Kid'
@@ -200,11 +227,15 @@ class Game:
         elif player_choice == 'random':
             return random.choice(choices)
         else: 
-            return None
+            raise InvalidInput
 
     def get_word(self):
-        human_input_word = input('>>>').upper()
-        return human_input_word
+        human_input = self.get_input('>>>')
+        if human_input == '\skip': 
+            print('You chose to skip')
+        else: 
+            human_word = human_input
+            return human_word.upper()
 
     def tile_probability(self):
         """This function calculates probabilities of each tile in the bag 
@@ -226,8 +257,8 @@ class Game:
         """   
         letters = list(self.tile_probability().keys())
         probabilities = list(self.tile_probability().values())
-        # number_of_tiles = 7 - len(player.rack) 
-        player.rack = choice(letters, 7,p=probabilities, replace=False)
+        # number_of_tiles = 7 - len(player.rack)
+        player.rack = choice(letters, 7,p=probabilities, replace = True)
         return list(player.rack)
 
     def remove_tiles(self, small_collection, large_collection): 
@@ -255,40 +286,47 @@ class Game:
         self.greetings()
         human_player = Human('Human')
         players = [human_player]
-        while True: 
-            player_choice = self.choose_character()
-            if player_choice: 
-                computer_player = Computer(player_choice)
-                players.append(computer_player)
-                break
-        self.announce_player(computer_player)
-        for i in range(1, 8):
-            print('------------------------------------------------------------')
-            print('Round ', i)
-            self.announce_scores(players)
-            for player in players:
-                player.rack = self.deal_tiles(player)
-                self.announce_rack(player)
-            self.announce_turn()
+        try: 
             while True:
-                human_word = self.get_word().strip()
-                word = Word(human_word)
-                is_verified = word.verify(human_player.rack)
-                if is_verified:
-                    human_player.points += self.calculate_points(human_word)
-                    computer_player.response('positive')
-                    break
+                try:  
+                    player_choice = self.choose_character()
+                except InvalidInput: 
+                    print('Please choose a valid oponent ("Kid", "Master" or "Random"):')
                 else:
-                    computer_player.response('negative')
-            computer_word = computer_player.play()
-            if not computer_word: 
-                computer_player.response('skip')
-            else: 
-                print(computer_word)
-                computer_player.points += self.calculate_points(computer_word)
+                    if player_choice: 
+                        computer_player = Computer(player_choice)
+                        players.append(computer_player)
+                        break
+            self.announce_player(computer_player)
+            for i in range(1, 8):
+                print('------------------------------------------------------------')
+                print('Round ', i)
+                self.announce_scores(players)
+                for player in players:
+                    player.rack = self.deal_tiles(player)
+                    self.announce_rack(player)
+                self.announce_turn()
+                while True:
+                    human_word = self.get_word().strip()
+                    word = Word(human_word)
+                    is_verified = word.verify(human_player.rack)
+                    if is_verified:
+                        human_player.points += self.calculate_points(human_word)
+                        computer_player.response('positive')
+                        break
+                    else:
+                        computer_player.response('negative')
+                computer_word = computer_player.play()
+                if not computer_word: 
+                    computer_player.response('skip')
+                else: 
+                    print(computer_word)
+                    computer_player.points += self.calculate_points(computer_word)
 
-        print('------------------------------------------------------------')    
-        self.announce_end(players)
+            print('------------------------------------------------------------')    
+            self.announce_end(players)
+        except KeyboardInterrupt:
+            print('Okay! I\'m always here when you are ready! See you next time.')
 
 game = Game()
 game.play()
