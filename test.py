@@ -144,7 +144,7 @@ class Game:
 
         Choose your oponent: 
         - The Kid is fast but he plays mostly short words
-        - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but once his words are intricate. 
+        - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but his words are intricate. 
         - Random to let the computer choose for you.
         ''')
 
@@ -184,7 +184,7 @@ class Game:
         if list_of_players[0].points == list_of_players[1].points: 
             print('It\'s a tie. Well done! With a little more training, you will be ready to take on the Dark Lord.')
         elif list_of_players[0].points > list_of_players[1].points: 
-            print('You won! I have never met such a competent player. You are ready to battle Dark Lord.')
+            print('You won! I have never met such a competent player. You are ready to battle the Dark Lord.')
         else: 
             print('Solid effort. But you are not ready yet. Go back and train some more.')
 
@@ -263,6 +263,7 @@ class Game:
                 break
         self.announce_player(computer_player)
         for i in range(1, 8):
+            print('------------------------------------------------------------')
             print('Round ', i)
             self.announce_scores(players)
             for player in players:
@@ -285,7 +286,8 @@ class Game:
             else: 
                 print(computer_word)
                 computer_player.points += self.calculate_points(computer_word)
-            print('------------------------------------------------------------')
+
+        print('------------------------------------------------------------')    
         self.announce_end(players)
 
 game = Game()
