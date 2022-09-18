@@ -26,7 +26,7 @@ trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
 
 class Character():
     __available_characters = ['Human', 'The Kid', 'The Word Master']
-
+    
     def __init__(self, name):
         self.name = name
         self.points = 0
@@ -54,27 +54,36 @@ class Human(Character):
         return human_word
 
 class Computer(Character):
+    __kid_name_options = ['kid', 'the kid']
+    __master_name_options = ['master', 'the master', 'word master', 'the word master']
+
     def __init__(self, name):
         super().__init__(name)
+        if name.lower() in kid_name_options:
+            self.name = 'The Kid'
+        elif name.lower() in master_name_options:
+            self.name = 'The Word Master'
+        else: 
+            print('Invalid character')
         if self.name == 'The Kid': 
             self.word_length = [2, 3, 4]
         else: 
-            self.word_length = [6, 7]
+            self.word_length = [5, 6, 7]
         
 
-    def shuffle_letters(self, rack, group_number):
+    def shuffle_letters(self):
         words_to_test= []
-        group_number = random.choice[self.word_length]
-        t = list(itertools.permutations(rack, group_number))
+        group_number = random.choice(self.word_length)
+        t = list(itertools.permutations(self.rack, group_number))
         for i in range(len(t)):
             words_to_test.append(''.join(t[i]))
         return words_to_test
     
     def play(self):
-        word_options = self.shuffle_letters(self.rack, self.word_length)
+        word_options = self.shuffle_letters()
         for word in word_options: 
             if word in english_words:
-                return word
+                return f'{self.name} played {word}'
 
     def response_positive(self):
         """This function picks a random response to the opponent's word from a list of positive responses
@@ -132,25 +141,7 @@ class Word:
             print('Try again.') 
             return False
 
-
-class Actions:
-    def __init__(self, name):
-        self.name = name
         
-    def response(self, word):
-        """This function picks a random response to the opponent's word from a list depending on whether the word is correct or not
-
-        Args:
-            word (_str_): opponent's word
-
-        Returns:
-            _int_: a phrase chosen at random
-        """    
-        if Game.verify_word(word, rack):
-            print(random.choice(positive))
-        else: 
-            print(random.choice(tone))
-
 class Game: 
     def __init__(self): 
         pass
@@ -198,12 +189,18 @@ class Game:
         Returns:
             __list__: player's rack 
         """   
-        player = Character(player)
         letters = list(self.tile_probability().keys())
         probabilities = list(self.tile_probability().values())
         number_of_tiles = 7 - len(player.rack) 
         player.rack = choice(letters, number_of_tiles,p=probabilities, replace=False)
         return list(player.rack)
+
+    def remove_tiles(self, small_collection, large_collection): 
+        # if not isinstance(small_collection, str): 
+        #     small_collection = list(small_collection)
+        for tile in small_collection: 
+            large_collection.remove(tile)
+        return large_collection
 
     def calculate_points(self, word):
         """This function calculates points based on the word played
@@ -230,21 +227,26 @@ class Game:
                 computer_player = Computer(player)
                 characters.append(computer_player)
         print(characters)
-        for i in range(1, 8):
-            print('Round ', i)
-            for player in characters:
-                player.rack += self.deal_tiles(player)
-                self.announce_rack(player)
-            self.announce_turn()
-            while True:
-                human_word = self.get_word()
-                word = Word(human_word)
-                is_verified = word.verify(human_player.rack)
-                if is_verified:
-                    computer_player.response_positive()
-                    return
-                else: 
-                    computer_player.response_negative()
+        # print(computer_player)
+        # for i in range(1, 8):
+        #     print('Round ', i)
+        #     for player in characters:
+        #         player.rack += self.deal_tiles(player)
+        #         self.announce_rack(player)
+        #     self.announce_turn()
+        #     while True:
+        #         human_word = self.get_word()
+        #         word = Word(human_word)
+        #         is_verified = word.verify(human_player.rack)
+        #         if is_verified:
+        #             self.remove_tiles(word.word, human_player.rack)
+        #             print(human_player.rack)
+        #             break
+        #     if is_verified:
+        #         computer_player.response_positive()
+        #     else: 
+        #         computer_player.response_negative()
+        #     print(computer_player.play())
 
 
 game = Game()
