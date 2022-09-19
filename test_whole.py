@@ -1,21 +1,17 @@
-class SkipTurn(Exception): 
-    def __init__(self):
-        pass
+import itertools
+from numpy.random import choice
 
-def game_play():
-    while True: 
-        try: 
-            human_word = input('Play an English word: ')
-            if human_word.lower() == '\skip':
-                raise SkipTurn
-        except SkipTurn:
-            human_word = '###'
-            print('You chose to skip.')
-            break
-        else: 
-            print('Word validation runs')
-            break
-    print(human_word)
-    print('Computer plays')
+player_rack = ['A', 'G', 'A', 'R', 'T']
+group_number = 3
+def shuffle_letters(player_rack):
+    words_to_test= []
+    # group_number = random.randint(2, 6)
+    group_number = 3
+    large_combinations = list(itertools.permutations(player_rack, group_number))
+    for combination in large_combinations:
+        words_to_test.append(''.join(combination))
+    return words_to_test
 
-game_play()
+# print(shuffle_letters(player_rack))
+
+print(type(choice(player_rack)))

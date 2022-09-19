@@ -1,6 +1,8 @@
-import random
+import sys
+from time import sleep
 import itertools
 from numpy.random import choice
+
 
 # dictionary = open("dic.txt").read().splitlines()
 human = 'You'
@@ -16,15 +18,27 @@ tile_bag = {"A": 9, "B": 2, "C": 2, "D": 4, "E": 12, "F": 2, "G": 3, "H": 2, "I"
 
 tile_probability = {'A': 0.09, 'B': 0.02, 'C': 0.02, 'D': 0.04, 'E': 0.12, 'F': 0.02, 'G': 0.03, 'H': 0.02, 'I': 0.09, 'J': 0.01, 'K': 0.01, 'L': 0.04, 'M': 0.02, 'N': 0.06, 'O': 0.09, 'P': 0.02, 'Q': 0.01, 'R': 0.06, 'S': 0.04, 'T': 0.06, 'U': 0.04, 'V': 0.02, 'W': 0.02, 'X': 0.01, 'Y': 0.03, 'Z': 0.01}
 
+greetings = 'Hello! Welcome to Word Play!\n'
+greetings_block_1 = "\nYou are a word enthusiast from Fancy Town and it is your life goal to take on the Dark Lord who has been terrorizing your village for quite some times. The Dark Lord is powerful and evil, however, his ego is his weakness. You plan to challenge him to a Guess the Word game and beat him in public." 
+
+greetings_block_2 = "\nTo prepare yourself for the big battle, you come to the town's Word Master to ask for his opinion. His grandson, The Kid, is cheeky and smart, he sometimes interupts people who come to see his grandfather." 
+
+available_characters = """
+Choose your oponent: 
+    - The Kid is fast but he plays mostly short words
+    - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but his words are intricate. 
+    - Random to let the computer choose for you.\n
+    """
+
 negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t you?', 'Is that all you got?', 'Lame effort. Hahaha', 'I thought you were better than that.']
 
 positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder the people of Fancy Town think so highly of you', 'Well played!', 'A worthy opponent!']
 
 encourge = ['Now give it another go', 'Your are better than that', 'Don\'t give up!']
 
-skip = ['I\'ll have to skip', 'I don\'t know, this is too much for me!', 'Hmmmm... I have no answers']
+skip = ['I don\'t know, this is too much for me!', 'Hmmmm... I have no answers', 'I must have fallen asleep. I\'ll have to skip']
 
-trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
+trick_bag = ['Skip']
 
 class Character():
     __available_characters = ['Human', 'The Kid', 'The Word Master']
@@ -63,16 +77,16 @@ class Computer(Character):
     def __init__(self, name):
         super().__init__(name)
         if self.name == 'The Kid': 
-            self.word_length = [2, 3, 4]
+            self.word_length = [3, 4]
         else: 
             self.word_length = [5, 6, 7]
 
     def shuffle_letters(self):
         words_to_test= []
-        group_number = random.choice(self.word_length)
-        t = list(itertools.permutations(self.rack, group_number))
-        for i in range(len(t)):
-            words_to_test.append(''.join(t[i]))
+        group_number = int(choice(self.word_length))
+        letter_combinations = list(itertools.permutations(self.rack, group_number))
+        for combination in letter_combinations:
+            words_to_test.append(''.join(combination))
         return words_to_test
     
     def play(self):
@@ -90,12 +104,13 @@ class Computer(Character):
             _int_: a phrase chosen at random
         """    
         if tone == 'positive':
-            print(random.choice(positive))
+            message = choice(positive) + '\n'
         elif tone == 'negative': 
-            print(random.choice(negative))
-            print('Try again.')
+            message = choice(negative) + '\n' + 'Try again\n'
         else: 
-            print(random.choice(skip))
+            message = choice(skip) + '\n'
+        Game.typewriter(self, message)
+        
     
 class Word: 
     def __init__(self, word):
@@ -114,13 +129,13 @@ class Word:
         false_letters_invalid = set()
         false_letters_too_many = set()
         rack_letter_count = {self.word[i] : rack.count(self.word[i]) for i in range(len(self.word))}
-        for i in range(len(self.word)):
-            if self.word[i] not in rack:
-                false_letters_invalid.add(self.word[i])
-            elif rack_letter_count[self.word[i]] > 0: 
-                rack_letter_count[self.word[i]] -= 1
+        for letter in self.word:
+            if letter not in rack:
+                false_letters_invalid.add(letter)
+            elif rack_letter_count[letter] > 0: 
+                rack_letter_count[letter] -= 1
             else: 
-                false_letters_too_many.add(self.word[i])
+                false_letters_too_many.add(letter)
         if not false_letters_too_many and not false_letters_invalid: 
             if self.word.upper() in english_words:
                 print(f'{self.word} is an excellent choice.') 
@@ -151,18 +166,6 @@ class Game:
     def __init__(self): 
         pass
 
-    def greetings(self): 
-        print('''Hello! Welcome to Word Play! You are a word enthusiast from Fancy Town and it is your life goal to take on the Dark Lord who has been terrorizing your village for quite some times. The Dark Lord is powerful and evil, however, his ego is his weakness. You plan to challenge him to a Guess the Word game and beat him in public. 
-
-        To prepare yourself for the big battle, you come to the town's Word Master to ask for his opinion. His grandson, The Kid, is cheeky and smart, he sometimes interupts people who come to see his grandfather. 
-
-
-        Choose your oponent: 
-        - The Kid is fast but he plays mostly short words
-        - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but his words are intricate. 
-        - Random to let the computer choose for you.
-        ''')
-
     def get_input(self, prompt): 
         input_value = input(prompt).lower()
         if input_value == '\quit': 
@@ -171,7 +174,17 @@ class Game:
             self.get_help()
         return input_value
 
-    
+    def typewriter(self, message):
+        for letter in message:
+            sys.stdout.write(letter)
+            sys.stdout.flush()
+            sleep(0.01) if letter != '\n' else sleep(0.1)
+
+    def announce_blocks(self, message):
+        sleep(0.5)
+        print(message)
+        sleep(0.5)
+
     def get_help(self): 
         print("""Valid keyboard inputs are:
         * \Help to see this message again
@@ -181,18 +194,18 @@ class Game:
 
     def announce_player(self, player):
         if player.name == 'The Kid':
-            print('The Kid just run in from outside. He will play with you!')
+            self.typewriter('The Kid just run in from outside. He will play with you!\n')
         else: 
-            print('The Word Master just roused from a siesta. He will take you on.')
+            self.typewriter('The Word Master just roused from a siesta. He will take you on.\n')
 
     def announce_rack(self, player):
         if player.name == 'Human':
-            print(f'Your rack is: {player.rack}')
+            self.typewriter(f'Your rack is: {player.rack}\n')
         else: 
-            print(f"{player.name}' rack is: {player.rack}")
+            self.typewriter(f"{player.name}' rack is: {player.rack}\n")
 
     def announce_turn(self):
-        print("It's your turn. Goodluck!\nPlay a valid English word.")
+        print("It's your turn. Goodluck!\nPlay an English word.")
 
     def announce_scores(self, list_of_players):
         s = "'s"
@@ -222,14 +235,14 @@ class Game:
     def choose_character(self): 
         kid_name_options = ['kid', 'the kid']
         master_name_options = ['master', 'the master', 'word master', 'the word master'] 
-        player_choice = str(self.get_input('Choose your opponet: ')).lower()
+        player_choice = str(self.get_input('>>>>')).strip().lower()
         choices = ['The Kid', 'The Word Master']
         if player_choice in kid_name_options: 
             return 'The Kid'
         elif player_choice in master_name_options:
             return 'The Word Master'
         elif player_choice == 'random':
-            return random.choice(choices)
+            return choice(choices)
         else: 
             raise InvalidInput
 
@@ -287,7 +300,10 @@ class Game:
         return points
 
     def play(self):
-        self.greetings()
+        self.typewriter(greetings)
+        self.announce_blocks(greetings_block_1)
+        self.announce_blocks(greetings_block_2)
+        self.typewriter(available_characters)
         human_player = Human('Human')
         players = [human_player]
         try:
@@ -312,7 +328,7 @@ class Game:
                 self.announce_turn()
                 while True:
                     try:
-                        human_word = self.get_word().strip()
+                        human_word = self.get_word()
                     except SkipTurn: 
                         human_word = '####' 
                         print('You chose to skip.')
