@@ -2,6 +2,7 @@ import sys
 from time import sleep
 import itertools
 from numpy.random import choice
+from textwrap import dedent
 
 
 # dictionary = open("dic.txt").read().splitlines()
@@ -64,14 +65,6 @@ class Human(Character):
         super().__init__(name)
         self.trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
 
-
-    # def play(self):
-    #     human_input = Game.get_input(self, '>>>>')
-    #     if human_input == '\skip': 
-    #         print('YOu chose to skip')
-    #     else: 
-    #         human_word = human_input
-    #         return human_word.upper()
 
 class Computer(Character):
     def __init__(self, name):
@@ -161,6 +154,10 @@ class KeyboardInterupt(Exception):
 class SkipTurn(Exception):
     def __init__(self):
         super().__init__(self)
+
+class HelpRequired(Exception):
+    def __init__(self):
+        super().__init__(self)
         
 class Game: 
     def __init__(self): 
@@ -172,7 +169,11 @@ class Game:
             raise KeyboardInterrupt
         elif input_value == '\help':
             self.get_help()
-        return input_value
+            raise HelpRequired
+        elif input_value == '\skip':
+            raise SkipTurn
+        else: 
+            return input_value
 
     def typewriter(self, message):
         for letter in message:
@@ -189,7 +190,7 @@ class Game:
         print("""Valid keyboard inputs are:
         * \Help to see this message again
         * \Quit to quit at any point of the game
-        * \Trick to see the trick bag
+        * \Skip to skip your turn
         """)
 
     def announce_player(self, player):
@@ -329,6 +330,8 @@ class Game:
                 while True:
                     try:
                         human_word = self.get_word()
+                    except HelpRequired:
+                        continue
                     except SkipTurn: 
                         human_word = '####' 
                         print('You chose to skip.')
