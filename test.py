@@ -143,6 +143,10 @@ class KeyboardInterupt(Exception):
     def __init__(self):
         super().__init__(self)
         
+class SkipTurn(Exception):
+    def __init__(self):
+        super().__init__(self)
+        
 class Game: 
     def __init__(self): 
         pass
@@ -232,7 +236,7 @@ class Game:
     def get_word(self):
         human_input = self.get_input('>>>')
         if human_input == '\skip': 
-            print('You chose to skip')
+            raise SkipTurn
         else: 
             human_word = human_input
             return human_word.upper()
@@ -286,7 +290,7 @@ class Game:
         self.greetings()
         human_player = Human('Human')
         players = [human_player]
-        try: 
+        try:
             while True:
                 try:  
                     player_choice = self.choose_character()
@@ -307,15 +311,21 @@ class Game:
                     self.announce_rack(player)
                 self.announce_turn()
                 while True:
-                    human_word = self.get_word().strip()
-                    word = Word(human_word)
-                    is_verified = word.verify(human_player.rack)
-                    if is_verified:
-                        human_player.points += self.calculate_points(human_word)
-                        computer_player.response('positive')
+                    try:
+                        human_word = self.get_word().strip()
+                    except SkipTurn: 
+                        human_word = '####' 
+                        print('You chose to skip.')
                         break
-                    else:
-                        computer_player.response('negative')
+                    else: 
+                        word = Word(human_word)
+                        is_verified = word.verify(human_player.rack)
+                        if is_verified:
+                            human_player.points += self.calculate_points(human_word)
+                            computer_player.response('positive')
+                            break
+                        else:
+                            computer_player.response('negative')
                 computer_word = computer_player.play()
                 if not computer_word: 
                     computer_player.response('skip')
@@ -326,7 +336,7 @@ class Game:
             print('------------------------------------------------------------')    
             self.announce_end(players)
         except KeyboardInterrupt:
-            print('Okay! I\'m always here when you are ready! See you next time.')
+            print('Okay! Come back when you are ready!')
 
 game = Game()
 game.play()
