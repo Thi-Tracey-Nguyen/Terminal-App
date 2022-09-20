@@ -1,7 +1,8 @@
 import sys
 from time import sleep
 import itertools
-from numpy.random import choice
+from numpy import random as nur
+import random
 import os
  
 path = os.path.abspath("dic.txt")
@@ -58,18 +59,20 @@ class Computer(Character):
         else: 
             self.word_length = [5, 6, 7]
 
+    def random_number(self, word_length):
+        group_numbers = random.sample(self.word_length, len(word_length) - 1)
+        return group_numbers
+
     def play(self):
-        for num in sorted(self.word_length, reverse = True):
-            words_to_test= []
-            group_number = num
-            letter_combinations = list(itertools.permutations(self.rack, group_number))
+        words_to_test = []
+        for number in self.random_number(self.word_length):
+            letter_combinations = list(itertools.permutations(self.rack, number))
             for combination in letter_combinations:
                 words_to_test.append(''.join(combination))
             for word in words_to_test: 
                 if word in english_words:
                     print(f'{self.name} played {word}')
                     return word
-        return None
 
     def response(self, tone):
         """This function picks a random response to the opponent's word from a list of positive responses
@@ -78,11 +81,11 @@ class Computer(Character):
             _int_: a phrase chosen at random
         """    
         if tone == 'positive':
-            message = choice(positive) + '\n'
+            message = random.choice(positive) + '\n'
         elif tone == 'negative': 
-            message = choice(negative) + '\n' + 'Try again\n'
+            message = random.choice(negative) + '\n' + 'Try again\n'
         else: 
-            message = choice(skip) + '\n'
+            message = random.choice(skip) + '\n'
         Game.typewriter(self, message)
         
 class Word: 
@@ -224,7 +227,7 @@ class Game:
         elif player_choice in master_name_options:
             return 'The Word Master'
         elif player_choice == 'random':
-            return choice(choices)
+            return random.choice(choices)
         else: 
             raise InvalidInput
 
@@ -257,7 +260,7 @@ class Game:
         letters = list(self.tile_probability().keys())
         probabilities = list(self.tile_probability().values())
         # number_of_tiles = 7 - len(player.rack)
-        player.rack = choice(letters, 7,p=probabilities, replace = True)
+        player.rack = nur.choice(letters, 7,p=probabilities, replace = True)
         return list(player.rack)
 
     def calculate_points(self, word):
