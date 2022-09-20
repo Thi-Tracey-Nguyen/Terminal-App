@@ -2,14 +2,11 @@ import sys
 from time import sleep
 import itertools
 from numpy.random import choice
-from textwrap import dedent
+import os
+ 
+path = os.path.abspath("dic.txt")
 
-
-human = 'You'
-computer = 'Computer'
-
-
-with open("dic.txt") as word_file:
+with open(path, 'r', encoding='utf-8') as word_file:
     english_words = set(word.strip() for word in word_file)
 
 letter_values = {"A": 1, "B": 3, "C": 3, "D": 2, "E": 1, "F": 4, "G": 2, "H": 4, "I": 1, "J": 1, "K": 5, "L": 1, "M": 3, "N": 1, "O": 1, "P": 3, "Q": 10, "R": 1, "S": 1, "T": 1, "U": 1, "V": 4, "W": 4, "X": 8, "Y": 4, "Z": 10}
@@ -24,9 +21,9 @@ greetings_block_1 = "\nYou are a word enthusiast from Fancy Town and it is your 
 greetings_block_2 = "\nTo prepare yourself for the big battle, you come to the town's Word Master to ask for his opinion. His grandson, The Kid, is cheeky and smart, he sometimes interupts people who come to see his grandfather." 
 
 available_characters = """
-Choose your oponent: 
+Choose your opponent: 
     - The Kid is fast but he plays mostly short words
-    - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but his words are intricate. 
+    - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but his words are intricate.
     - Random to let the computer choose for you.\n
     """
 
@@ -41,7 +38,6 @@ skip = ['I don\'t know, this is too much for me!', 'Hmmmm... I have no answers',
 trick_bag = ['Skip']
 
 class Character():
-    __available_characters = ['Human', 'The Kid', 'The Word Master']
     
     def __init__(self, name):
         self.name = name
@@ -51,19 +47,8 @@ class Character():
     def __repr__(self): 
         return self.name
 
-
     def __str__(self):
         return self.name
-
-    @classmethod
-    def is_valid_character(cls, character): 
-        return character in cls.__available_characters
-
-class Human(Character):
-    def __init__(self, name):
-        super().__init__(name)
-        self.trick_bag = ['Skip', 'DP', 'TP', 'Hint', 'Confundo']
-
 
 class Computer(Character):
     def __init__(self, name):
@@ -73,21 +58,18 @@ class Computer(Character):
         else: 
             self.word_length = [5, 6, 7]
 
-    def shuffle_letters(self):
-        words_to_test= []
-        group_number = int(choice(self.word_length))
-        letter_combinations = list(itertools.permutations(self.rack, group_number))
-        for combination in letter_combinations:
-            words_to_test.append(''.join(combination))
-        return words_to_test
-    
     def play(self):
-        for i in range(0, 2):
-            word_options = self.shuffle_letters()
-            for word in word_options: 
+        for num in sorted(self.word_length, reverse = True):
+            words_to_test= []
+            group_number = num
+            letter_combinations = list(itertools.permutations(self.rack, group_number))
+            for combination in letter_combinations:
+                words_to_test.append(''.join(combination))
+            for word in words_to_test: 
                 if word in english_words:
                     print(f'{self.name} played {word}')
                     return word
+        return None
 
     def response(self, tone):
         """This function picks a random response to the opponent's word from a list of positive responses
@@ -103,7 +85,6 @@ class Computer(Character):
             message = choice(skip) + '\n'
         Game.typewriter(self, message)
         
-    
 class Word: 
     def __init__(self, word):
         self.word = word
@@ -279,13 +260,6 @@ class Game:
         player.rack = choice(letters, 7,p=probabilities, replace = True)
         return list(player.rack)
 
-    def remove_tiles(self, small_collection, large_collection): 
-        # if not isinstance(small_collection, str): 
-        #     small_collection = list(small_collection)
-        for tile in small_collection: 
-            large_collection.remove(tile)
-        return large_collection
-
     def calculate_points(self, word):
         """This function calculates points based on the word played
 
@@ -305,14 +279,14 @@ class Game:
         self.announce_blocks(greetings_block_1)
         self.announce_blocks(greetings_block_2)
         self.typewriter(available_characters)
-        human_player = Human('Human')
+        human_player = Character('Human')
         players = [human_player]
         try:
             while True:
                 try:  
                     player_choice = self.choose_character()
                 except InvalidInput: 
-                    print('Please choose a valid oponent ("Kid", "Master" or "Random"):')
+                    print('Please choose a valid opponent ("Kid", "Master" or "Random"):')
                 else:
                     if player_choice: 
                         computer_player = Computer(player_choice)
