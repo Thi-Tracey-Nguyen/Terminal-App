@@ -5,7 +5,6 @@ from numpy.random import choice
 from textwrap import dedent
 
 
-# dictionary = open("dic.txt").read().splitlines()
 human = 'You'
 computer = 'Computer'
 
@@ -207,6 +206,7 @@ class Game:
 
     def announce_turn(self):
         print("It's your turn. Goodluck!\nPlay an English word.")
+        print("""***Type \help to get help at any time***""")
 
     def announce_scores(self, list_of_players):
         s = "'s"
