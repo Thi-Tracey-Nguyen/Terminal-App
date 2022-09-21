@@ -1,11 +1,10 @@
-import sys
+import sys, random
+from itertools import permutations
 from time import sleep
-import itertools
+from os import path
 from numpy import random as nur
-import random
-import os
- 
-path = os.path.abspath("dic.txt")
+
+path = path.abspath("dic.txt")
 
 with open(path, 'r', encoding='utf-8') as word_file:
     english_words = set(word.strip() for word in word_file)
@@ -66,7 +65,8 @@ class Computer(Character):
     def play(self):
         words_to_test = []
         for number in self.random_number(self.word_length):
-            letter_combinations = list(itertools.permutations(self.rack, number))
+            print(number)
+            letter_combinations = list(permutations(self.rack, number))
             for combination in letter_combinations:
                 words_to_test.append(''.join(combination))
             for word in words_to_test: 

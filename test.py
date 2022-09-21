@@ -1,7 +1,9 @@
 import itertools
 import os
 import random
+from turtle import clear
 from types import NoneType
+import old_man
  
 path = os.path.abspath("dic.txt")
 
@@ -41,6 +43,5 @@ def play_word(rack):
                 return word
         
 
-word_length = [5, 6, 7]
-print(play_word(rack))
-
+# word_length = [5, 6, 7]
+# print(play_word(rack))

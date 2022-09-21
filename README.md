@@ -1,22 +1,23 @@
 # Terminal App for T1A3 Assessment
 ## List of features in the application
+
 1. Choose an opponent
    There are two characters as the opponent to the human player. The human player can choose which one to play against or choose to let the program pick a random character. If the player picks an unavailable character, the program will display a message which shows available characters and let them choose again. 
 
 2. Play a word  
-   When it is their turn, the player can play a word onto the board. The word must be made from the letters on their rack the input will be checked against a dictionary (.txt file). There are three scenarios: 
+   When it is their turn, the player can play a word onto the board. The word must be made from the letters on their rack, the input will be checked against a dictionary (.txt file). There are three scenarios: 
 
-   * If the word contains characters that are not in the player's rack, the program will rejects the word with an explaination.
-   * If the word is not a valid English word, the program will reject the word with a response.
+   * If the word contains characters that are not in the player's rack, the program will rejects the word with an explanation, and prompts the user to try again.
+   * If the word is not a valid English word, the program will reject the word with a response, and prompts the user to try again.
    * If the word only uses valid characters and is an English word, the program excepts it and prints it onto the terminal.
 
     The computer opponent will say a response that is appropriate for the scenario. 
 
 3. Skip a turn  
-   The player can skip a turn if they cannot form a valid word by typing `\skip` within their turn, with each skip, the player will be given a new set of characters.
+   The player can skip a turn if they cannot form a valid word by typing `\skip` within their turn, with each skip, the player will be given a new set of characters. Their input will bypass the verification mechanism and they score 0 in that turn. Computer will play its turn then the game continues.
 
 4. Access HELP for rules  
-   The player can type `\help` to see valid keyboard inputs such as `\skip`, `\help` and `\quit`
+   The player can type `\help` to see valid keyboard inputs such as `\skip`, `\help` and `\quit`. After that, they can return to where they were in the game. 
 
 5. Quit anytime  
    The player can type `\quit` to quit at anytime. The program will display a farewell message and terminate.
@@ -25,15 +26,15 @@
 ## Implementation Plan  
 
 In order of priority: 
-1. Game Logic  
+1. Game Logic 
 2. Classes, attributes and methods
-3. Game flow
+3. Game features
 4. Testing
 5. Error Handling
 6. Nice-to-haves 
 
 ### Game Logic
-* Generate random characters in the alphabet, with a consideration for frequencies. 
+* Weighted randomization of word characters. 
 * Create permutations of characters with randomized permutation length to keep the game fair.
 * Word verification requires two steps:  1/Checking if all the characters is from the player's rack and 2/Checking if the word is a valid English word. 
 * Score keeping: points for each character in the valid word are stored in a dictionary, use itertation to calculate points for each word and carry the points through the whole game. 
@@ -50,7 +51,7 @@ In order of priority:
     <tbody>
         <tr>
             <td>[ ]</th>
-            <td>Brainstorm on the logic of creating combinations of characters</th>
+            <td>Creating combinations of characters</th>
             <td>****</th>
             <td>Timeline</th>
         </tr>
@@ -62,21 +63,21 @@ In order of priority:
         </tr>
         <tr>
             <td>[ ]</th>
-            <td>Score keeping logic</th>
+            <td>Score keeping</th>
             <td>****</th>
             <td>Timeline</th>
         </tr>
         <tr>
             <td>[ ]</th>
-            <td>Logic of randomizing characters based on frequencies</th>
+            <td>Weighted randomization</th>
             <td>****</th>
             <td>Timeline</th>
         </tr>
     </tbody>
 </table>
 
-### Choose the computer opponent
-`Character` class is the super class, its attributes are: name, points and rack. Default points is 0, and rack is empty. This class has the `__repr__` and `__str__` methods both return the player's name. The human player is an instance of `Character` class with the name `'Human'`
+### Classes, attributes and methods
+`Character` class is the superclass, its attributes are: name, points and rack. Default points is 0, and rack is empty. This class has the `__repr__` and `__str__` methods both return the player's name. The human player is an instance of `Character` class with the name `'Human'`
 
 `Computer` is a subclass of the `Character` class, it inherits all attributes and methods from `Character`. It has three additional methods that are `.shuffle_letters()`, `.play()` and `.response()` to make a comment on the player's words.
 
@@ -122,51 +123,30 @@ In order of priority:
 </table>
 
 
-### Play a word
-To decide first play, both the player and computer are given one random tile each. Whose tile is closest to A goes first.
+### Game features
 
-At the start of the game, both the player and computer player will be provided with 5 random tiles, 2 words are randomly generated to be on the board as starters.
+1. Choose opponent
+   * Get user input
+   * Check it against available opponent characters 
+     - if valid: return user input
+     - if invalid: loop back to the prompt  
+2. Play a word: 
+   * get user input 
+   * check it using the `.verify()` method 
+        - if valid: return the valid result
+        - if invalid: loop back to the input prompt
+3. Skip a turn
+   * Check user input for `\skip`
+   * Print a response on the terminal
+   * Player's word will be '####', which equals 0 points, bypass the verification step. 
+   * Computer plays its turn 
+4. Access help
+   * Check user input for `\skip`
+   * If true: print a response on the terminal
+   * Loop back to the get input prompt
+5. Quit anytime
+   * Check user input for `\quit`
+   * If true: print a farewell response on the terminal
+   * Terminate the program
 
-To play a word, the players must use the tiles on their rack and one letter from the board. The word is checked against a dictionary to determine if it is a valid word. 
 
-<table>
-    <thead>
-        <tr>
-            <th>Checkbox</th>
-            <th>Task</th>
-            <th>Timeline</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>[ ]</th>
-            <td>Create classes and their attributes</th>
-            <td>Timeline</th>
-        </tr>
-        <tr>
-            <td>[ ]</th>
-            <td>Create instances of classes</th>
-            <td>Timeline</th>
-        </tr>
-        <tr>
-            <td>[ ]</th>
-            <td>Function to randomly draw tiles</th>
-            <td>Timeline</th>
-        </tr>
-        <tr>
-            <td>[ ]</th>
-            <td>Function to determine how close a character is to A</th>
-            <td>Timeline</th>
-        </tr>
-        <tr>
-            <td>[ ]</th>
-            <td>Function to check if a word is valid</th>
-            <td>Timeline</th>
-        </tr>
-        <tr>
-            <td>[ ]</th>
-            <td>Function to remove drawn tiles from bag</th>
-            <td>Timeline</th>
-        </tr>
-    </tbody>
-</table>
