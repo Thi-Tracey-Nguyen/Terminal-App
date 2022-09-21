@@ -5,7 +5,7 @@
    There are two characters as the opponent to the human player. The human player can choose which one to play against or choose to let the program pick a random character. If the player picks an unavailable character, the program will display a message which shows available characters and let them choose again. 
 
 2. Play a word  
-   When it is their turn, the player can play a word onto the board. The word must be made from the letters on their rack, the input will be checked against a dictionary (.txt file). There are three scenarios: 
+   When it is their turn, the player can play a word. The word must be made from the letters on their rack, the input will be checked against a dictionary (.txt file). There are three scenarios: 
 
    * If the word contains characters that are not in the player's rack, the program will rejects the word with an explanation, and prompts the user to try again.
    * If the word is not a valid English word, the program will reject the word with a response, and prompts the user to try again.
@@ -30,7 +30,7 @@ In order of priority:
 2. Classes, attributes and methods
 3. Game features
 4. Testing
-5. Error Handling
+5. Exception Handling
 6. Nice-to-haves 
 
 ### Game Logic
@@ -51,14 +51,20 @@ In order of priority:
     <tbody>
         <tr>
             <td>[ ]</th>
-            <td>Creating combinations of characters</th>
-            <td>****</th>
+            <td>Research on applicable modules (random, numpy, etc.)</th>
+            <td>*****</th>
+            <td>Timeline</th>
+        </tr>
+        <tr>
+            <td>[ ]</th>
+            <td>Function to create combinations of characters</th>
+            <td>*****</th>
             <td>Timeline</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Logic of word verification</th>
-            <td>*****</th>
+            <td>******</th>
             <td>Timeline</th>
         </tr>
         <tr>
@@ -98,25 +104,31 @@ In order of priority:
         <tr>
             <td>[ ]</th>
             <td>Create Character class, its attributes and methods</th>
-            <td>**</th>
+            <td>***</th>
             <td>Timeline</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create Computer class</th>
-            <td>**</th>
+            <td>***</th>
             <td>Timeline</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create Word class, its attributes and methods</th>
-            <td>**</th>
+            <td>***</th>
             <td>Timeline</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create Game class, its attributes and methods</th>
-            <td>**</th>
+            <td>***</th>
+            <td>Timeline</th>
+        </tr>
+        <tr>
+            <td>[ ]</th>
+            <td>Think aboout difficulty of each opponent can vary</th>
+            <td>***</th>
             <td>Timeline</th>
         </tr>
     </tbody>
@@ -149,4 +161,56 @@ In order of priority:
    * If true: print a farewell response on the terminal
    * Terminate the program
 
+<table>
+    <thead>
+        <tr>
+            <th>Checkbox</th>
+            <th>Task</th>
+            <th>Priority</th>
+            <th>Timeline</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>[ ]</th>
+            <td>Create Character class, its attributes and methods</th>
+            <td>***</th>
+            <td>Timeline</th>
+        </tr>
+        <tr>
+            <td>[ ]</th>
+            <td>Create Computer class</th>
+            <td>***</th>
+            <td>Timeline</th>
+        </tr>
+        <tr>
+            <td>[ ]</th>
+            <td>Create Word class, its attributes and methods</th>
+            <td>***</th>
+            <td>Timeline</th>
+        </tr>
+        <tr>
+            <td>[ ]</th>
+            <td>Create Game class, its attributes and methods</th>
+            <td>***</th>
+            <td>Timeline</th>
+        </tr>
+        <tr>
+            <td>[ ]</th>
+            <td>Think aboout difficulty of each opponent can vary</th>
+            <td>***</th>
+            <td>Timeline</th>
+        </tr>
+    </tbody>
+</table>
 
+###Testing
+1. Testing word verification methods
+2. Testing skipping rate (computer)
+
+###Exception Handling
+1. KeyboardInterrupt
+2. Help
+3. Skip 
+
+###Nice to haves

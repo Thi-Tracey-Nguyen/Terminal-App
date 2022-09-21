@@ -4,9 +4,9 @@ from time import sleep
 from os import path
 from numpy import random as nur
 
-path = path.abspath("dic.txt")
+dic_path = path.abspath("dic.txt")
 
-with open(path, 'r', encoding='utf-8') as word_file:
+with open(dic_path, 'r', encoding='utf-8') as word_file:
     english_words = set(word.strip() for word in word_file)
 
 letter_values = {"A": 1, "B": 3, "C": 3, "D": 2, "E": 1, "F": 4, "G": 2, "H": 4, "I": 1, "J": 1, "K": 5, "L": 1, "M": 3, "N": 1, "O": 1, "P": 3, "Q": 10, "R": 1, "S": 1, "T": 1, "U": 1, "V": 4, "W": 4, "X": 8, "Y": 4, "Z": 10}
@@ -65,7 +65,6 @@ class Computer(Character):
     def play(self):
         words_to_test = []
         for number in self.random_number(self.word_length):
-            print(number)
             letter_combinations = list(permutations(self.rack, number))
             for combination in letter_combinations:
                 words_to_test.append(''.join(combination))
@@ -332,7 +331,7 @@ class Game:
             print('------------------------------------------------------------')    
             self.announce_end(players)
         except KeyboardInterrupt:
-            print('Okay! Come back when you are ready!')
+            print('\nOkay! Come back when you are ready!')
 
 game = Game()
 game.play()
