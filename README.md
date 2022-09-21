@@ -127,7 +127,7 @@ In order of priority:
         </tr>
         <tr>
             <td>[ ]</th>
-            <td>Think aboout difficulty of each opponent can vary</th>
+            <td>Logic for difficulty control</th>
             <td>***</th>
             <td>Timeline</th>
         </tr>
