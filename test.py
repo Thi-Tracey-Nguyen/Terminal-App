@@ -1,6 +1,6 @@
 import pytest
 import word
-from main import Game
+from game import Game
 import exceptions as ex
 
 
