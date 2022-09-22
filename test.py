@@ -1,7 +1,7 @@
 import pytest
 import word
 from main import Game
-from exceptions import InvalidInput
+import exceptions as ex
 
 
 class TestVerifyWord: 
@@ -41,6 +41,32 @@ class TestChooseCharacter:
         inputs = iter(['hero', 'lion king', 'hulk', '326', '15.5', 'j@kesteR'])
 
         monkeypatch.setattr('builtins.input', lambda prompt: next(inputs))
-        with pytest.raises(InvalidInput):
+        with pytest.raises(ex.InvalidInput):
             game = Game()
             game.choose_character()
+
+class TestExceptions:
+    
+    def test_quit(self, monkeypatch):
+        input = '%quit'
+        monkeypatch.setattr('builtins.input', lambda prompt: input)
+        with pytest.raises(ex.Quit):
+            game = Game()
+            game.choose_character()
+            game.get_word()
+
+    def test_get_help(self, monkeypatch):
+        input = '%help'
+        monkeypatch.setattr('builtins.input', lambda prompt: input)
+        with pytest.raises(ex.HelpRequired):
+            game = Game()
+            game.choose_character()
+            game.get_word()
+
+    def test_skip(self, monkeypatch):
+        input = '%skip'
+        monkeypatch.setattr('builtins.input', lambda prompt: input)
+        with pytest.raises(ex.SkipTurn):
+            game = Game()
+            game.choose_character()
+            game.get_word()

@@ -15,14 +15,14 @@ greetings_block_2 = "\nThe goal of the game is to form a word from the provided 
 
 available_characters = """
 Choose your opponent: 
-    - The Kid is smart and fast but he plays mostly short words
+    - The Kid is smart and fast, but he plays mostly short words
     - The Word Master is wise but slow, he sometimes falls asleep and has to skip a turn, but his words are intricate.
     - Random to let the computer choose for you.\n
     """
 
 negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t you?', 'Is that all you got?', 'You could have done better.', 'I thought you were better than that.']
 
-positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder the people of Fancy Town think so highly of you', 'Well played!', 'A worthy opponent!']
+positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder the people of Fancy Town think so highly of you.', 'Well played!', 'A worthy opponent!']
 
 encourage = ['Now give it another go.\n', 'Don\'t give up! Try again.\n']
 
@@ -33,6 +33,6 @@ def typewriter(message):
         sys.stdout.write(letter)
         sys.stdout.flush()
         if letter != '\n':
-            sleep(0.01)
+            sleep(0.02)
         else:
-            sleep(0.1)
+            sleep(0.2)

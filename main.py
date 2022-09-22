@@ -25,14 +25,14 @@ class Game:
         else: 
             return input_value
 
-    def typewriter(self, message):
-        for letter in message:
-            sys.stdout.write(letter)
-            sys.stdout.flush()
-            if letter != '\n':
-                sleep(0.1)
-            else: 
-                sleep(0.5)
+    # def typewriter(self, message):
+    #     for letter in message:
+    #         sys.stdout.write(letter)
+    #         sys.stdout.flush()
+    #         if letter != '\n':
+    #             sleep(0.1)
+    #         else: 
+    #             sleep(0.5)
 
     def announce_blocks(self, message):
         sleep(0.5)
@@ -49,15 +49,15 @@ class Game:
 
     def announce_player(self, player):
         if player.name == 'The Kid':
-            self.typewriter('\nThe Kid just run in from outside. He will play with you!')
+            d.typewriter('\nThe Kid just run in from outside. He will play with you!')
         else: 
-            self.typewriter('\nThe Word Master just roused from a siesta. He will take you on.')
+            d.typewriter('\nThe Word Master just roused from a siesta. He will take you on.')
 
     def announce_rack(self, player):
         if player.name == 'Human':
-            self.typewriter(f'Your rack is: {player.rack}\n')
+            d.typewriter(f'Your rack is: {player.rack}\n')
         else: 
-            self.typewriter(f"{player.name}'s rack is: {player.rack}\n")
+            d.typewriter(f"{player.name}'s rack is: {player.rack}\n")
 
     def announce_turn(self):
         print("\nIt's your turn. Play an English word.")
@@ -161,10 +161,10 @@ class Game:
         return points
 
     def play(self):
-        # self.typewriter(d.greetings)
-        # self.announce_blocks(d.greetings_block_1)
-        # self.announce_blocks(d.greetings_block_2)
-        # self.typewriter(d.available_characters)
+        d.typewriter(d.greetings)
+        self.announce_blocks(d.greetings_block_1)
+        self.announce_blocks(d.greetings_block_2)
+        d.typewriter(d.available_characters)
         human_player = ch.Character('Human')
         players = [human_player]
         try:
