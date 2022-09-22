@@ -70,3 +70,11 @@ class TestExceptions:
             game = Game()
             game.choose_character()
             game.get_word()
+
+class TestScoreKeeping: 
+    def test_calculate_points(self):
+        words = ['PADLE', 'QUEEN', 'MOODY', 'ZIPPY', 'TESTER', 'ED', 'PAT', 'MARS']
+        points =[8, 14, 11, 21, 6, 3, 5, 6]
+        game = Game()
+        for index, value in enumerate(words):
+            assert game.calculate_points(value) == points[index]

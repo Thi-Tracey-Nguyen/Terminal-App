@@ -41,10 +41,11 @@ class Game:
 
     def get_help(self): 
         print("""
-        \nValid keyboard inputs are:
+        \nThings to note:
         1. *Help to see this message again
         2. *Quit to quit at any point of the game
         3. *Skip to skip your turn
+        4. Q, Z, J and Z bring higher points.
         """)
 
     def announce_player(self, player):
