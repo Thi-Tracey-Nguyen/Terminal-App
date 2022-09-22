@@ -36,8 +36,9 @@ class Computer(Character):
                 words_to_test.append(''.join(combination))
             for word in words_to_test: 
                 if word in w.english_words:
-                    print(f'{self.name} played {word}')
+                    print(f'{self.name} played {word}\n')
                     return word
+        return None
 
     def response(self, tone):
         """This function picks a random response to the opponent's word from a list of positive responses
@@ -50,7 +51,7 @@ class Computer(Character):
         if tone == 'positive':
             message = random.choice(d.positive)
         elif tone == 'negative': 
-            message = random.choice(d.negative) + random.choice(d.encourge)
+            message = random.choice(d.negative) + ' ' + 'Try again!'
         else: 
             message = random.choice(d.skip)
         d.typewriter(message)

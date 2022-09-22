@@ -19,11 +19,11 @@ Choose your opponent:
     - Random to let the computer choose for you.\n
     """
 
-negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t you?', 'Is that all you got?', 'Lame effort. Hahaha', 'I thought you were better than that.']
+negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t you?', 'Is that all you got?', 'Lame effort.', 'I thought you were better than that.']
 
 positive = ['That\'s brilliant!\n', 'You\'re very clever!\n', 'No wonder the people of Fancy Town think so highly of you\n', 'Well played!\n', 'A worthy opponent!\n']
 
-encourge = ['Now give it another go\n', 'Your are better than that\n', 'Don\'t give up!\n']
+encourge = ['Now give it another go\n', 'Don\'t give up! Try again.\n']
 
 skip = ['I don\'t know, this is too much for me!\n', 'Hmmmm... I have no answers\n', 'I must have fallen asleep. I\'ll have to skip\n']
 

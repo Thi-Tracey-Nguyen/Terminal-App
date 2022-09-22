@@ -28,6 +28,7 @@ class Word:
         false_letters_invalid = set()
         false_letters_too_many = set()
         rack_letter_count = {self.word[i] : rack.count(self.word[i]) for i in range(len(self.word))}
+        print('Game Referee: ', end = '')
         for letter in self.word:
             if letter not in rack:
                 false_letters_invalid.add(letter)
@@ -44,10 +45,7 @@ class Word:
                 return False
         else: 
             if false_letters_invalid: 
-                print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!') 
-            if false_letters_too_many: 
+                print(f'{false_letters_invalid} {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!', end = '') 
+            elif false_letters_too_many: 
                 print(f'{false_letters_too_many} {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!')
             return False
-
-test = Word('test')
-print(test)

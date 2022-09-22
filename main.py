@@ -37,7 +37,8 @@ class Game:
         sleep(0.5)
 
     def get_help(self): 
-        print("""Valid keyboard inputs are:
+        print("""
+        \nValid keyboard inputs are:
         1. *Help to see this message again
         2. *Quit to quit at any point of the game
         3. *Skip to skip your turn
@@ -84,16 +85,18 @@ class Game:
         else: 
             print('Solid effort. But you are not ready yet. Go back and train some more.')
 
-    def countdown(self):
-        print('Next round in ')
+    def countdown(self, message):
+        print(message)
         sleep(1.5)
         print('3...')
         sleep(1.5)
         print('2...')
         sleep(1.5)
         print('1...')
-        sleep(0.7)
-
+        sleep(1.5)
+        print('0')
+        sleep(0.2)
+        
     def choose_character(self): 
         kid_name_options = ['kid', 'the kid']
         master_name_options = ['master', 'the master', 'word master', 'the word master'] 
@@ -162,10 +165,17 @@ class Game:
         players = [human_player]
         try:
             while True:
+                print('\n') 
+                print('Please choose a valid opponent ("Kid", "Master" or "Random"). ')
                 try:  
                     player_choice = self.choose_character()
-                except ex.InvalidInput: 
-                    print('Please choose a valid opponent ("Kid", "Master" or "Random"):')
+                except ex.InvalidInput:
+                    print('Invalid character. Type %Help to get help.')
+                except ex.HelpRequired:
+                    continue
+                except ex.SkipTurn:
+                    print('You can not skip here. Type %Help to get help.')
+                    continue
                 else:
                     if player_choice: 
                         computer_player = ch.Computer(player_choice)
@@ -173,7 +183,9 @@ class Game:
                         break
             self.announce_player(computer_player)
             print('\n')
-            for i in range(1, 8):
+            self.countdown('Get Ready. Starting in')
+            for i in range(1, 4):
+                clearing.clear()
                 print('------------------------------------------------------------')
                 print('Round ', i)
                 self.announce_scores(players)
@@ -189,7 +201,7 @@ class Game:
                         continue
                     except ex.SkipTurn: 
                         human_word = '####' 
-                        print('You chose to skip.')
+                        print('You chose to skip.\n')
                         break
                     else: 
                         word = w.Word(human_word)
@@ -204,13 +216,14 @@ class Game:
                 if not computer_word: 
                     computer_player.response('skip')
                 else: 
-                    print(computer_word)
                     computer_player.points += self.calculate_points(computer_word)
-                self.countdown()
-                clearing.clear()
+                if i == 3: 
+                    continue
+                self.countdown('Starting next round: ')
 
             print('------------------------------------------------------------')    
             self.announce_end(players)
+
         except (ex.KeyboardInterrupt, KeyboardInterrupt):
             print('\nOkay! Come back when you are ready!')
 
