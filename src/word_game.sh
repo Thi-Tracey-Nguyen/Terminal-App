@@ -16,7 +16,7 @@ source word_game/bin/activate
 
 pwd
 
-python3 install pip
+python3 -m ensurepip --upgrade
 
 pip install -r ./requirements.txt
 

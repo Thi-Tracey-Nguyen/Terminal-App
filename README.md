@@ -58,7 +58,6 @@ In order of priority:
 3. Game features
 4. Testing
 5. Exception Handling
-6. Nice-to-haves
 
 ### Game Logic  
 
@@ -81,31 +80,31 @@ In order of priority:
             <td>[ ]</th>
             <td>Research on applicable modules (random, numpy, etc.)</th>
             <td>*****</th>
-            <td>Timeline</th>
+            <td>16-17 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Function to create combinations of characters</th>
             <td>*****</th>
-            <td>Timeline</th>
+            <td>16-17 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Logic of word verification</th>
             <td>******</th>
-            <td>Timeline</th>
+            <td>16-17 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Score keeping</th>
             <td>****</th>
-            <td>Timeline</th>
+            <td>16-17 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Weighted randomization</th>
             <td>****</th>
-            <td>Timeline</th>
+            <td>16-17 Sept</th>
         </tr>
     </tbody>
 </table>
@@ -139,31 +138,31 @@ In order of priority:
             <td>[ ]</th>
             <td>Create Character class, its attributes and methods</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>18-20 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create Computer class</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>18-20 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create Word class, its attributes and methods</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>18-20 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create Game class, its attributes and methods</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>18-20 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Logic for difficulty control</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20 Sept</th>
         </tr>
     </tbody>
 </table>
@@ -190,37 +189,37 @@ In order of priority:
             <td>[ ]</th>
             <td>Create .get_input() in Game class </th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20-21 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write methods to compare get_input to valid inputs</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20-21 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Create a loop to go back if input is invalid</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20-21 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Instantiate a computer_player as an object of Character class</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20-21 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Raise exceptions if input meets conditions</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20-21 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write test case</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>20-21 Sept</th>
         </tr>
     </tbody>
 </table>
@@ -245,38 +244,38 @@ In order of priority:
         <tr>
             <td>[ ]</th>
             <td>Create .get_word() in Game class, which uses .get_input()</th>
-            <td>***</th>
+            <td>21-22 Sept</th>
             <td>Timeline</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write methods to parse letters in the player's word and compare each letter to the rack</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>21-22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Once the word passes the first step, check it in the dictionary</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>21-22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>If the player's word is valid, returns it</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>21-22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>If the player's word is invalid, loops back to the get_word() prompt</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>21-22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write test case</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>21-22 Sept</th>
         </tr>
     </tbody>
 </table>
@@ -302,31 +301,31 @@ In order of priority:
             <td>[ ]</th>
             <td>Create a SkipTurn exception as a subclass of the built-in Exception class</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Function to check input receives from get_input() against %skip, raises SkipTurn exception if True</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Manage the control flow: computer plays its turn</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Player's word point is 0 for this round</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write test case</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
     </tbody>
 </table>
@@ -352,31 +351,31 @@ In order of priority:
             <td>[ ]</th>
             <td>Create a HelpRequired exception as a subclass of the built-in Exception class</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Function to check input receives from get_input() against %help, raises HelpRequired exception if True</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Manage the control flow: loops back to where the player was</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>The game must continue afterward</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write test case</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>22 Sept</th>
         </tr>
     </tbody>
 </table>
@@ -413,19 +412,59 @@ In order of priority:
             <td>[ ]</th>
             <td>Manage the control flow: print a farewell message</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>23 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Terminate the program</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>23 Sept</th>
         </tr>
         <tr>
             <td>[ ]</th>
             <td>Write test case</th>
             <td>***</th>
-            <td>Timeline</th>
+            <td>23 Sept</th>
         </tr>
     </tbody>
 </table>
+
+## Installation
+### System requirements
+- The application requires python 3.10 to run. If you do not have python in your machine, go [here](https://www.python.org/downloads/) and install the appropriate program for your operating system.
+
+### Steps to install
+1. Open terminal by: 
+- On Mac: pressing Command + space, type 'Terminal', hit enter
+- On window: pressing Windows key + X then click Command prompt, at the command prompt, type: 'bash' then hit Enter
+2. In the terminal, input the followings:  
+* Clone this repository to your computer  
+```git clone https://github.com/Thi-Tracey-Nguyen/Terminal-App.git```
+* Change the working directory to where you downloaded the folder:    
+```cd <filepath>```  
+* Open the downloaded file:  
+```open src```  
+* Allow the execution of the bash script:  
+```chmod +x word_game.sh```  
+* Run the program:  
+```./word_game.sh```
+
+### Dependencies
+These dependencies will be automatically installed in your virtual environment:  
+```attrs==22.1.0
+clearing==1.0.0
+iniconfig==1.1.1
+numpy==1.23.3
+packaging==21.3
+pluggy==1.0.0
+py==1.11.0
+pyparsing==3.0.9
+pytest==7.1.3
+tomli==2.0.1
+```
+
+### Valid inputs for the application
+1. %Help to see Help menu
+2. %Quit or ```Ctrl+C``` to quit anytime
+3. %Skip to skip when it's your turn.  
+4. 
