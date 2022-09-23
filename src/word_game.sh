@@ -20,8 +20,6 @@ python3 install pip
 
 pip install -r ./requirements.txt
 
-cp ./dic.txt .
-
 clear
 
 python3 ./main.py
