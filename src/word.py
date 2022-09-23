@@ -6,10 +6,10 @@ Variables:
 Class:
     - Word: instantiates a valid user input into a word object and verifies it
     """
+import os
 
-from os import path
+dic_path = os.path.abspath('dic.txt')
 
-dic_path = path.abspath("src/dic.txt")
 with open(dic_path, 'r', encoding='utf-8') as word_file:
     english_words = set(word.strip() for word in word_file)
 
