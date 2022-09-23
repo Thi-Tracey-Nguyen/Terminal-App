@@ -9,7 +9,7 @@ Class:
 
 from os import path
 
-dic_path = path.abspath("dic.txt")
+dic_path = path.abspath("src/dic.txt")
 with open(dic_path, 'r', encoding='utf-8') as word_file:
     english_words = set(word.strip() for word in word_file)
 

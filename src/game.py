@@ -2,10 +2,10 @@ import random
 from time import sleep
 import clearing
 from numpy import random as nur
-import src.data as d
-import src.word as w
+import data as d
+import word as w
 import exceptions as ex
-import src.character as ch
+import character as ch
 
         
 class Game: 
