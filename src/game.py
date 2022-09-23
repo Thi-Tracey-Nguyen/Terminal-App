@@ -152,13 +152,13 @@ class Game:
         return points
 
     def play(self):
-        d.typewriter(d.greetings)
-        self.announce_blocks(d.greetings_block_1)
-        self.announce_blocks(d.greetings_block_2)
-        d.typewriter(d.available_characters)
-        human_player = ch.Character('Human')
-        players = [human_player]
         try:
+            d.typewriter(d.greetings)
+            self.announce_blocks(d.greetings_block_1)
+            self.announce_blocks(d.greetings_block_2)
+            d.typewriter(d.available_characters)
+            human_player = ch.Character('Human')
+            players = [human_player]
             while True:
                 print('\n')
                 print('Please choose a valid opponent ("Kid", "Master" or "Random"). ')
@@ -223,6 +223,7 @@ class Game:
             computer_player.response_end(message)
 
         except (ex.Quit, KeyboardInterrupt):
+            print('\n')
             print('\nOkay! Come back when you are ready!')
         finally:
             print('\n')
