@@ -67,10 +67,8 @@ class Word:
         else:
             if false_letters_invalid:
                 print(f'''{false_letters_invalid}
-                 {"is" if len(false_letters_invalid) == 1 else "are"}
-                  not in your rack!''', end = '')
+                 {"is" if len(false_letters_invalid) == 1 else "are"} not in your rack!''', end = '')
             elif false_letters_too_many:
                 print(f'''{false_letters_too_many}
-                 {"is" if len(false_letters_invalid) == 1 else "are"}
-                  used too many times!''')
+                 {"is" if len(false_letters_invalid) == 1 else "are"} used too many times!''')
             return False

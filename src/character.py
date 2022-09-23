@@ -2,7 +2,7 @@ import random
 from time import sleep
 from itertools import permutations
 import src.data as d
-import word as w
+import src.word as w
 
 class Character():
     

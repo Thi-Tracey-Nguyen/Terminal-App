@@ -1,7 +1,7 @@
 "This module contains testing procedures"
 
 import pytest
-import word
+import src.word as word
 from game import Game
 import exceptions as ex
 
