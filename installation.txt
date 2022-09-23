@@ -1,0 +1,8 @@
+download src folder onto your computer
+Open terminal by: 
+- On Mac: pressing Command + space, type Terminal, hit enter
+- On window: pressing Windows key + X then click Command prompt, at the command prompt, type: bash then hit Enter
+in terminal, change into the directory where the downloaded file is
+open the downloaded file: open src
+allow the execution of the bash script: 'chmod +x word_game.sh'
+run the program: 'word_game.sh'
