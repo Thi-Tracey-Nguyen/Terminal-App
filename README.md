@@ -175,6 +175,7 @@ In order of priority:
 </table>
 
 ![Trello Board](./docs/Screen%20Shot%202022-09-24%20at%208.25.06%20am.png)  
+[Link to Trello Board](https://trello.com/b/vZWAkSuy/terminal-application)  
 
 ### Game features  
 
