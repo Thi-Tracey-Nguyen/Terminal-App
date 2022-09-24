@@ -29,7 +29,7 @@
    The player can type `%help` to see valid keyboard inputs such as `%skip`, `%help` and `%quit`. After that, they can return to where they were in the game.
 
 5. Quit anytime  
-   The player can type `%quit` to quit at anytime. The program will display a farewell message and terminate.
+   The player can type `%quit` or `Ctrl+C` to quit at anytime. The program will display a farewell message and terminate.
   
 ### Feature logics  
 
@@ -85,31 +85,31 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>- [x]</th>
+            <td>[x]</th>
             <td>Research on applicable modules (random, numpy, etc.)</th>
             <td>*****</th>
             <td>16-17 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Function to create combinations of characters</th>
             <td>*****</th>
             <td>16-17 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Logic of word verification</th>
             <td>******</th>
             <td>16-17 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Score keeping</th>
             <td>****</th>
             <td>16-17 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Weighted randomization</th>
             <td>****</th>
             <td>16-17 Sept</th>
@@ -122,7 +122,6 @@ In order of priority:
 1. ```character``` module  
    `Character` class is the superclass, its attributes are: name, points and rack. Default points is 0, and rack is empty. This class has the `__repr__` and `__str__` methods both return the player's name. The human player is an instance of `Character` class with the name `'Human'`  
    `Computer` is a subclass of the `Character` class, it inherits all attributes and methods from `Character`. It has three additional methods that are `.shuffle_letters()`, `.play()` and `.response()` to make a comment on the player's words.  
-
 2. ```word``` module  
    `Word` class has a 'word' attribute and a `verify()` method.
 3. ```game``` module  
@@ -143,37 +142,39 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create Character class, its attributes and methods</th>
             <td>***</th>
             <td>18-20 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create Computer class</th>
             <td>***</th>
             <td>18-20 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create Word class, its attributes and methods</th>
             <td>***</th>
             <td>18-20 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create Game class, its attributes and methods</th>
             <td>***</th>
             <td>18-20 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Logic for difficulty control</th>
             <td>***</th>
             <td>20 Sept</th>
         </tr>
     </tbody>
 </table>
+
+![Trello Board](./docs/Screen%20Shot%202022-09-24%20at%208.25.06%20am.png)  
 
 ### Game features  
 
@@ -194,37 +195,37 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create .get_input() in Game class </th>
             <td>***</th>
             <td>20-21 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write methods to compare get_input to valid inputs</th>
             <td>***</th>
             <td>20-21 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create a loop to go back if input is invalid</th>
             <td>***</th>
             <td>20-21 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Instantiate a computer_player as an object of Character class</th>
             <td>***</th>
             <td>20-21 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Raise exceptions if input meets conditions</th>
             <td>***</th>
             <td>20-21 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write test case</th>
             <td>***</th>
             <td>20-21 Sept</th>
@@ -234,8 +235,8 @@ In order of priority:
 
 2. Play a word  
 
-* Uses ```.get_input()``` method to get user input  
-* Uses ```.verify()``` method to verify the word on 2 aspects:
+* Uses `.get_input()` method to get user input  
+* Uses `.verify()` method to verify the word on 2 aspects:
   * Checks if the word only uses letters in the player's rack, the number of occurence of each letter is also considered. If this test fails, the game loops back to get input prompt.
   * Once the word passes the previous check, it is checked against a dictionary.txt file. If valid, the method returns the valid word. If it fails this test, the game loops back to get input prompt.  
 
@@ -250,37 +251,37 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create .get_word() in Game class, which uses .get_input()</th>
             <td>21-22 Sept</th>
             <td>Timeline</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write methods to parse letters in the player's word and compare each letter to the rack</th>
             <td>***</th>
             <td>21-22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Once the word passes the first step, check it in the dictionary</th>
             <td>***</th>
             <td>21-22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>If the player's word is valid, returns it</th>
             <td>***</th>
             <td>21-22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>If the player's word is invalid, loops back to the get_word() prompt</th>
             <td>***</th>
             <td>21-22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write test case</th>
             <td>***</th>
             <td>21-22 Sept</th>
@@ -290,8 +291,8 @@ In order of priority:
 
 3. Skip a turn  
 
-* Uses ```.get_input()``` method to get user input
-* Checks user input if it is ```%skip```, if True, a SkipTurn exception is raised
+* Uses `.get_input()` method to get user input
+* Checks user input if it is `%skip`, if True, a SkipTurn exception is raised
 * Computer plays its turn
 * Human player point is 0 for that turn  
 
@@ -306,31 +307,31 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create a SkipTurn exception as a subclass of the built-in Exception class</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Function to check input receives from get_input() against %skip, raises SkipTurn exception if True</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Manage the control flow: computer plays its turn</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Player's word point is 0 for this round</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write test case</th>
             <td>***</th>
             <td>22 Sept</th>
@@ -356,31 +357,31 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create a HelpRequired exception as a subclass of the built-in Exception class</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Function to check input receives from get_input() against %help, raises HelpRequired exception if True</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Manage the control flow: loops back to where the player was</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>The game must continue afterward</th>
             <td>***</th>
             <td>22 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write test case</th>
             <td>***</th>
             <td>22 Sept</th>
@@ -390,7 +391,7 @@ In order of priority:
 
 5. Quit anytime  
 
-* Checks user input if it is ```%quit```, if True, a Quit exception is raised
+* Checks user input if it is `%quit`, if True, a Quit exception is raised
 * This feature also handles built-in KeyboardInterrupt error and terminates gracefully
 * Print a farewell message to the terminal and the program terminates.
 
@@ -405,37 +406,39 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Create a Quit exception as a subclass of the built-in Exception class</th>
             <td>***</th>
             <td>Timeline</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Function to check input receives from get_input() against %quit, raises Quit exception if True</th>
             <td>***</th>
             <td>Timeline</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Manage the control flow: print a farewell message</th>
             <td>***</th>
             <td>23 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Terminate the program</th>
             <td>***</th>
             <td>23 Sept</th>
         </tr>
         <tr>
-            <td>[ ]</th>
+            <td>[x]</th>
             <td>Write test case</th>
             <td>***</th>
             <td>23 Sept</th>
         </tr>
     </tbody>
 </table>
+
+![Trello board](./docs/Screen%20Shot%202022-09-24%20at%208.29.59%20am.png)
 
 ## Installation
 ### System requirements
@@ -448,7 +451,7 @@ In order of priority:
 2. In the terminal, input the followings:  
 * Clone this repository to your computer  
 ```git clone https://github.com/Thi-Tracey-Nguyen/word_game```
-* Change the working directory to where you downloaded the folder:    
+* Change the working directory to where you downloaded the folder:   
 ```cd <filepath>```  
 * Open the downloaded file:  
 ```open src```  
@@ -472,6 +475,6 @@ tomli==2.0.1
 ```
 
 ### Valid inputs for the application
-1. %Help to see Help menu
-2. %Quit or ```Ctrl+C``` to quit anytime
-3. %Skip to skip when it's your turn.  
+1. `%Help` to see Help menu
+2. `%Quit` or `Ctrl+C` to quit anytime
+3. `%Skip` to skip when it's your turn.  
