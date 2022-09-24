@@ -479,3 +479,7 @@ tomli==2.0.1
 1. `%Help` to see Help menu
 2. `%Quit` or `Ctrl+C` to quit anytime
 3. `%Skip` to skip when it's your turn.  
+
+## Testing
+* Testing module: pytest
+1. Test 
