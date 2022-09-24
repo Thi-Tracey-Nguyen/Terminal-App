@@ -14,8 +14,6 @@ python3 -m venv word_game
 
 source word_game/bin/activate
 
-pwd
-
 python3 -m ensurepip --upgrade
 
 pip install -r ./requirements.txt

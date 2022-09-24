@@ -119,17 +119,17 @@ In order of priority:
 
 ### Modules, classes, attributes and methods
 
-1. ```character``` module  
+1. `character` module  
    `Character` class is the superclass, its attributes are: name, points and rack. Default points is 0, and rack is empty. This class has the `__repr__` and `__str__` methods both return the player's name. The human player is an instance of `Character` class with the name `'Human'`  
    `Computer` is a subclass of the `Character` class, it inherits all attributes and methods from `Character`. It has three additional methods that are `.shuffle_letters()`, `.play()` and `.response()` to make a comment on the player's words.  
-2. ```word``` module  
+2. `word` module  
    `Word` class has a 'word' attribute and a `verify()` method.
-3. ```game``` module  
-   `Game` class has an `__init__` method and methods such as `get_input()`, `announce_players()`, `announce_turn()`, `calculate_points()`, `deal_characters()`
-4. ```data``` module:  
-   It contains constants such as `letter_values` which stores point values of each letter. `letter_collection` stores all the alphabet letters and its frequencies of occurance.  
-   It also has constants which are lists of responses the computer uses to responde to the player's moves such as ```positive```, ```negative``` and ```skip``` to use when the computer cannot produce a valid word within 'try limits'.  
-   This module has one method: ```typewriter()``` to print words to the console with typewriter effect, which helps with readability.
+3. `game` module  
+   `Game` class has an `__init__` method and methods such as `get_input()`, `announce_players()`, `announce_turn()`, `calculate_points()`, `deal_letters()`
+4. `data` module:  
+   It contains constants such as `letter_values` which stores point values of each letter. `letter_collection` stores all the alphabet letters and its frequencies of occurrence.  
+   It also has constants which are lists of responses the computer uses to responde to the player's moves such as `positive`, `negative` and `skip` to use when the computer cannot produce a valid word within 'try limits'.  
+   This module has one method: `typewriter()` to print words to the console with typewriter effect, which helps with readability.
 
 <table>
     <thead>
@@ -451,19 +451,19 @@ In order of priority:
 - On window: pressing Windows key + X then click Command prompt, at the command prompt, type: 'bash' then hit Enter
 2. In the terminal, input the followings:  
 * Clone this repository to your computer  
-```git clone https://github.com/Thi-Tracey-Nguyen/word_game```
+`git clone https://github.com/Thi-Tracey-Nguyen/word_game`
 * Change the working directory to where you downloaded the folder:   
-```cd <filepath>```  
-* Open the downloaded file:  
-```open src```  
+`cd <filepath>`  
+* Open the src directory:  
+`cd src`  
 * Allow the execution of the bash script:  
-```chmod +x word_game.sh```  
+`chmod +x word_game.sh`  
 * Run the program:  
-```./word_game.sh```
+`./word_game.sh`
 
 ### Dependencies
 These dependencies will be automatically installed in your virtual environment:  
-```attrs==22.1.0
+`attrs==22.1.0
 clearing==1.0.0
 iniconfig==1.1.1
 numpy==1.23.3
@@ -473,7 +473,7 @@ py==1.11.0
 pyparsing==3.0.9
 pytest==7.1.3
 tomli==2.0.1
-```
+`
 
 ### Valid inputs for the application
 1. `%Help` to see Help menu
@@ -547,7 +547,8 @@ tomli==2.0.1
             <td>As expected</th>
         </tr>
     </tbody>
-</table>
+</table>  
+
 * Catch words that use valid letters but are not English  
 <table>
     <tbody>
@@ -570,7 +571,7 @@ tomli==2.0.1
     </tbody>
 </table>
 
-2. Test choose_character method:
+1. Test choose_character method:
 * Fake inputs to test if InvalidInput is raised
 
 <table>

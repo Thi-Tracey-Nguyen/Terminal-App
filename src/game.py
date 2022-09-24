@@ -75,16 +75,17 @@ class Game:
         if list_of_players[0].points == list_of_players[1].points: 
             print('It\'s a tie.') 
             print('\n')
-            message = 'Well done! With a little more training, you will be ready to take on the Villian.'
+            message = 'Well done! With a little more training, you will be ready to take on the Jokester.'
         elif list_of_players[0].points > list_of_players[1].points: 
             print('You won!')
             print('\n')
-            message = 'I have never met such a competent player. You are ready to battle the Villian.'
+            message = 'I have never met such a competent player. You are ready to battle the Jokester.'
         else:
             print('You lost!')
             print('\n')
             message = 'Solid effort. But you are not ready yet. Go back and train some more.'
         return message
+        
     def countdown(self, message):
         print(message)
         for i in (3, 2, 1, 0):
@@ -224,7 +225,7 @@ class Game:
 
         except (ex.Quit, KeyboardInterrupt):
             print('\n')
-            print('\nOkay! Come back when you are ready!')
+            print('Okay! Come back when you are ready!')
         finally:
             print('\n')
             print('------------------------------------------------------------')

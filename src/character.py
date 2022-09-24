@@ -48,7 +48,7 @@ class Computer(Character):
             _int_: a phrase chosen at random
         """
         print('\n')
-        print(f'{self.name}: ')
+        print(f'{self.name}: ', end = '')
         if tone == 'positive':
             message = random.choice(d.positive)
         elif tone == 'negative':
