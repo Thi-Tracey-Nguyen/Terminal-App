@@ -483,5 +483,31 @@ tomli==2.0.1
 ## Testing
 * Testing module: pytest
 1. Test word verifying method:  
-2. Test choose_character method:
+* Verify words that are valid (using only letters in the player's rack) and are English  
+<table>
+    <tbody>
+        <tr>
+            <td>Words to test</th>
+            <td>Create a HelpRequired exception as a subclass of the built-in Exception class</th>
+        </tr>
+        <tr>
+            <td>Player's rack</th>
+            <td>Function to check input receives from get_input() against %help, raises HelpRequired exception if True</th>
+        </tr>
+        <tr>
+            <td>Expected result</th>
+            <td>Manage the control flow: loops back to where the player was</th>
+        </tr>
+        <tr>
+            <td>Test result</th>
+            <td>As expected</th>
+        </tr>
+    </tbody>
+</table>
+* Catch words that contain letters not in the player's rack (invalid letters)
+* Catch words that use letters in the rack more than their occurrences in the rack (invalid letters)
+* Catch words that use valid letters but are not English
+1. Test choose_character method:
+* Fake inputs to test if InvalidInput is raised
 3. Test score keeping function:
+* Uses a dictionary with English words as keys and their points as values. `calculate_points()` method should return the right values.
