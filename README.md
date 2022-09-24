@@ -482,4 +482,6 @@ tomli==2.0.1
 
 ## Testing
 * Testing module: pytest
-1. Test 
+1. Test word verifying method:  
+2. Test choose_character method:
+3. Test score keeping function:
