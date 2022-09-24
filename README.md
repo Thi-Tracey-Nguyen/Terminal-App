@@ -1,5 +1,13 @@
 # Terminal App for T1A3 Assessment
 
+## Links
+1. GitHub repository: https://github.com/Thi-Tracey-Nguyen/word_game
+2. Youtube presentation:  
+
+## Code guide and styling conventions  
+1. Goodger, D., Rossum, G. (2001) PEP 257 - Docstring Conventions [Styling Convention]. https://peps.python.org/pep-0257/  
+2. Rossum, G., Warsaw, B., Coghlan, N. (2001) PEP8 - Style Guide for Python Code [Styling Convention]. https://peps.python.org/pep-0008/
+
 ## List of features in the application
 
 1. Choose an opponent
@@ -15,7 +23,7 @@
     The computer opponent will say a response that is appropriate for the scenario.
 
 3. Skip a turn  
-   The player can skip a turn if they cannot form a valid word by typing `%skip` within their turn, with each skip, the player will be given a new set of characters. Their input will bypass the verification mechanism and they score 0 in that turn. Computer will play its turn then the game continues.
+   The player can skip a turn if they cannot form a valid word by typing `%skip` within their turn. With each skip, the player will be given a new set of letters. Their input will bypass the verification mechanism and they score 0 in that turn. Computer will play its turn then the game continues.
 
 4. Access HELP for rules  
    The player can type `%help` to see valid keyboard inputs such as `%skip`, `%help` and `%quit`. After that, they can return to where they were in the game.
@@ -77,7 +85,7 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>[ ]</th>
+            <td>~ [x]</th>
             <td>Research on applicable modules (random, numpy, etc.)</th>
             <td>*****</th>
             <td>16-17 Sept</th>
@@ -439,7 +447,7 @@ In order of priority:
 - On window: pressing Windows key + X then click Command prompt, at the command prompt, type: 'bash' then hit Enter
 2. In the terminal, input the followings:  
 * Clone this repository to your computer  
-```git clone https://github.com/Thi-Tracey-Nguyen/Terminal-App.git```
+```git clone https://github.com/Thi-Tracey-Nguyen/word_game```
 * Change the working directory to where you downloaded the folder:    
 ```cd <filepath>```  
 * Open the downloaded file:  
@@ -467,4 +475,3 @@ tomli==2.0.1
 1. %Help to see Help menu
 2. %Quit or ```Ctrl+C``` to quit anytime
 3. %Skip to skip when it's your turn.  
-4. 
