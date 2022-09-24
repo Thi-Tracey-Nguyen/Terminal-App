@@ -85,7 +85,7 @@ In order of priority:
     </thead>
     <tbody>
         <tr>
-            <td>~ [x]</th>
+            <td>- [x]</th>
             <td>Research on applicable modules (random, numpy, etc.)</th>
             <td>*****</th>
             <td>16-17 Sept</th>
