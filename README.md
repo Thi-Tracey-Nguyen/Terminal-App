@@ -488,15 +488,59 @@ tomli==2.0.1
     <tbody>
         <tr>
             <td>Words to test</th>
-            <td>Create a HelpRequired exception as a subclass of the built-in Exception class</th>
+            <td>['LIMBATE', 'BIMETAL', 'TIMBALE', 'ALBITE', 'LAMBIE', 'ALBITE', 'TIMBAL', 'ALBEIT', 'EMAIL', 'TELIA', 'AMBIT', 'LIMBA', 'TABLE', 'BALM', 'BLAM', 'AMIE', 'MABE', 'ABLE', 'LIB', 'BAT', 'MIB', 'MEL', 'MAT', 'LI', 'TA', 'BA', 'AM', 'AT']</th>
         </tr>
         <tr>
             <td>Player's rack</th>
-            <td>Function to check input receives from get_input() against %help, raises HelpRequired exception if True</th>
+            <td>['B', 'A', 'I', 'T', 'L', 'E', 'M']</th>
         </tr>
         <tr>
             <td>Expected result</th>
-            <td>Manage the control flow: loops back to where the player was</th>
+            <td>verify() method returns all the test inputs</th>
+        </tr>
+        <tr>
+            <td>Test result</th>
+            <td>As expected</th>
+        </tr>
+    </tbody>
+</table>  
+
+* Catch words that contain letters not in the player's rack (invalid letters)  
+<table>
+    <tbody>
+        <tr>
+            <td>Words to test</th>
+            <td>['CAMERA', 'AGED', 'YEAR', 'DAMP', 'ACHY', 'QUEEN', 'CAKE', 'DYED', 'DICE', 'AIMED' ]</th>
+        </tr>
+        <tr>
+            <td>Player's rack</th>
+            <td>['A', 'C', 'E', 'Y', 'D', 'A', 'M']</th>
+        </tr>
+        <tr>
+            <td>Expected result</th>
+            <td>assertion checks for False value</th>
+        </tr>
+        <tr>
+            <td>Test result</th>
+            <td>As expected</th>
+        </tr>
+    </tbody>
+</table>  
+
+* Catch words that use letters in the rack more than their occurrences in the rack (invalid letters)  
+<table>
+    <tbody>
+        <tr>
+            <td>Words to test</th>
+            <td>['MOON', 'TOTAL', 'NOON', 'TOOL', 'TALL', 'MOM']</th>
+        </tr>
+        <tr>
+            <td>Player's rack</th>
+            <td>['M', 'O', 'N', 'T', 'A', 'L']</th>
+        </tr>
+        <tr>
+            <td>Expected result</th>
+            <td>assertion checks for False value</th>
         </tr>
         <tr>
             <td>Test result</th>
@@ -504,10 +548,64 @@ tomli==2.0.1
         </tr>
     </tbody>
 </table>
-* Catch words that contain letters not in the player's rack (invalid letters)
-* Catch words that use letters in the rack more than their occurrences in the rack (invalid letters)
-* Catch words that use valid letters but are not English
-1. Test choose_character method:
+* Catch words that use valid letters but are not English  
+<table>
+    <tbody>
+        <tr>
+            <td>Words to test</th>
+            <td>['OWTS', 'SRAWLO', 'SALWOD', 'TORALS', 'RTSAWO', 'LS', 'ROTSLAW', 'LARTSW']</th>
+        </tr>
+        <tr>
+            <td>Player's rack</th>
+            <td>['O', 'R', 'T', 'S', 'L', 'A', 'W']</th>
+        </tr>
+        <tr>
+            <td>Expected result</th>
+            <td>assertion checks for False value</th>
+        </tr>
+        <tr>
+            <td>Test result</th>
+            <td>As expected</th>
+        </tr>
+    </tbody>
+</table>
+
+2. Test choose_character method:
 * Fake inputs to test if InvalidInput is raised
+
+<table>
+    <tbody>
+        <tr>
+            <td>Inputs to test</th>
+            <td>['hero', 'lion king', 'hulk', '326', '15.5', 'j@kesteR']</th>
+        </tr>
+        <tr>
+            <td>Expected result</th>
+            <td>InvalidInput exception is raised</th>
+        </tr>
+        <tr>
+            <td>Test result</th>
+            <td>As expected</th>
+        </tr>
+    </tbody>
+</table>
+
 3. Test score keeping function:
-* Uses a dictionary with English words as keys and their points as values. `calculate_points()` method should return the right values.
+* Uses a dictionary with English words as keys and their points as values. `calculate_points()` method should return the correct values.
+
+<table>
+    <tbody>
+        <tr>
+            <td>Inputs to test</th>
+            <td>{'PADLE': 8, 'QUEEN': 14, 'MOODY': 11, 'ZIPPY': 21, 'TESTER': 6, 'ED': 3, 'PAT': 5, 'MARS': 6}</th>
+        </tr>
+        <tr>
+            <td>Expected result</th>
+            <td>calculate_points() method returns dictionary values</th>
+        </tr>
+        <tr>
+            <td>Test result</th>
+            <td>As expected</th>
+        </tr>
+    </tbody>
+</table>  
