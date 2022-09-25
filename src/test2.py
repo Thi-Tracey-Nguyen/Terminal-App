@@ -1,3 +1,5 @@
 import word
+import data
+import game
 
-print(help(word))
+print(help(game))

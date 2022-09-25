@@ -1,3 +1,5 @@
+"""This module contains essential functions for game flow."""
+
 import random
 from time import sleep
 import clearing
@@ -8,28 +10,47 @@ import exceptions as ex
 import character as ch
 
         
-class Game: 
-    def __init__(self): 
+class Game:
+    """This class is used to instantiate a game. It has methods that are essential in a game.""" 
+
+    def __init__(self):
         pass
 
-    def get_input(self, prompt): 
+    def get_input(self, prompt):
+        """Gets user input and compares it to values which raise exceptions.
+        
+        Args:
+            - prompt (str): prompt to get user input
+
+        Returns:
+            - exceptions: appropriate exceptions for user input
+            - user_input (str): if input is not terms that raise exceptions, returns user input.
+        """
+
         input_value = input(prompt).lower()
-        if input_value == '%quit': 
+        if input_value == '%quit':
             raise ex.Quit
         elif input_value == '%help':
             self.get_help()
             raise ex.HelpRequired
         elif input_value == '%skip':
             raise ex.SkipTurn
-        else: 
+        else:
             return input_value
 
     def announce_blocks(self, message):
+        """Print out messages that are in blocks.
+
+        Args:
+            - message (str): multiple-lined messages
+        """
         sleep(0.5)
         print(message)
         sleep(0.5)
 
-    def get_help(self): 
+    def get_help(self):
+        """Print out 'Help' message"""
+
         print("""
         \nThings to note:
         1. %Help to see this message again
@@ -39,22 +60,42 @@ class Game:
         """)
 
     def announce_player(self, player):
+        """Print the annoucement of computer player with typewriter effect
+        
+        Args:
+            - player (Computer): computer player
+        """
+
         if player.name == 'The Kid':
             d.typewriter('\nThe Kid just run in from outside. He will play with you!')
-        else: 
+        else:
             d.typewriter('\nThe Word Master just roused from a siesta. He will take you on.')
 
     def announce_rack(self, player):
+        """Print human player's and computer player's racks with typewriter effect
+        
+        Args:
+            - player (Computer): computer plaer
+        """
+
         if player.name == 'Human':
             d.typewriter(f'Your rack is: {player.rack}\n')
         else: 
             d.typewriter(f"{player.name}'s rack is: {player.rack}\n")
 
     def announce_turn(self):
+        """Print announcement of human player's turn"""
+
         print("\nIt's your turn. Play an English word.")
         print("""***Type %Help to get help at any time***\n""")
 
     def announce_scores(self, list_of_players):
+        """Print computer player's and human players' scores
+        
+        Args:
+            - list_of_players (list): List of players
+        """
+
         s = "'s"
         for player in list_of_players:
             print(f"{player.name + s if player.name != 'Human' else 'Your'} {'point is' if player.points <= 0 else 'points are'}: {player.points}.", end = ' ')
@@ -68,6 +109,12 @@ class Game:
             print(f'{list_of_players[1]} is in front.')
 
     def announce_end(self, list_of_players):
+        """Print final scores of human and computer players, and the final verdict
+        
+        Args:
+            - list_of_players (list): list of players
+        """
+
         s = "'s"
         for player in list_of_players:
             print(f"{player.name + s if player.name != 'Human' else 'Your'} {'point is' if player.points <= 0 else 'points are'}: {player.points}.", end = ' ')
@@ -87,6 +134,11 @@ class Game:
         return message
         
     def countdown(self, message):
+        """Print countdown numbers on the terminal
+        
+        Args:
+            - message (str): announcement of new round
+        """
         print(message)
         for i in (3, 2, 1, 0):
             sleep(1)
@@ -94,6 +146,13 @@ class Game:
             sleep(0.5)
         
     def choose_character(self):
+        """Compares user input to available characters.
+        
+        Returns:
+            - user input if valid
+            - raises InvalidInput if user input is invalid
+        """
+        
         kid_name_options = ['kid', 'the kid']
         master_name_options = ['master', 'the master', 'word master', 'the word master']
         player_choice = str(self.get_input('>>>>  ')).strip().lower()
@@ -108,6 +167,13 @@ class Game:
             raise ex.InvalidInput
 
     def get_word(self):
+        """Compares user input to '%skip'
+        
+        Returns:
+            - user input if it is not '%skip'
+            - raises SkipTurn exception if it is '%skip
+        """
+
         human_input = self.get_input('>>>  ')
         if human_input == '%skip':
             raise ex.SkipTurn
@@ -121,11 +187,12 @@ class Game:
         Returns:
             _dict_: name of letter and its associated probability
         """
+
         total_number_of_letters = sum(d.letter_collection.values())
         return {letter : d.letter_collection[letter] / total_number_of_letters for letter in d.letter_collection.keys()}
 
     def deal_letters(self, player):
-        """This function randomly randomize letters for each player propotionally to the letters' frequencies. Total number of letters is 7 for each player.
+        """This function randomly randomize 7 letters for each player propotionally to the letters' frequencies.
 
         Args:
             rack(_list_): whose rack to deal letters to
@@ -133,6 +200,7 @@ class Game:
         Returns:
             __list__: player's rack
         """
+
         letters = list(self.letter_probability().keys())
         probabilities = list(self.letter_probability().values())
         player.rack = nur.choice(letters, 7,p=probabilities, replace = True)
@@ -146,6 +214,7 @@ class Game:
         Returns:
             _int_: points
         """
+
         points = 0
         word = word.strip().upper()
         for letter in word:
@@ -153,6 +222,8 @@ class Game:
         return points
 
     def play(self):
+        """Main flow of the game"""
+
         try:
             d.typewriter(d.greetings)
             self.announce_blocks(d.greetings_block_1)
@@ -179,8 +250,8 @@ class Game:
                         break
             self.announce_player(computer_player)
             print('\n')
-            self.countdown('Get Ready. Starting in')
-            for i in range(1, 4):
+            self.countdown('Get Ready. Starting in... ')
+            for i in range(1, 8):
                 clearing.clear()
                 print('------------------------------------------------------------')
                 print('Round ', i)
@@ -205,17 +276,17 @@ class Game:
                         if is_verified:
                             human_player.points += self.calculate_points(human_word)
                             computer_player.response('positive')
-                            computer_player.think()
                             break
                         else:
                             computer_player.response('negative')
                 sleep(1)
+                computer_player.think()
                 computer_word = computer_player.play()
                 if not computer_word:
                     computer_player.response('skip')
                 else:
                     computer_player.points += self.calculate_points(computer_word)
-                if i == 3:
+                if i == 7:
                     continue
                 self.countdown('Starting next round: ')
 

@@ -1,6 +1,4 @@
-"""Word
-This module instantiates a player's word into a word object and verifies it.
-"""
+"""This module instantiates a player's word into a word object and verifies it."""
 
 import os
 

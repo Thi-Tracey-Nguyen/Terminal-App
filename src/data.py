@@ -1,21 +1,5 @@
 """This module stores letter points and frequencies
 , it also stores phrases to use in computer's responses and greetings.
-
-Variables:
-    - LETTER_VALUES: points for each letter
-    - LETTER_COLLECTION: letters' frequencies
-    - GREETINGS: welcome message
-    - GREETINGS_BLOCK_1: background story
-    - GREETINGS_BLOCK_2: game's goal
-    - AVAILABLE_CHARACTERS: introduce characters
-    - positive: list of positive responses
-    - negative: list of negative responses
-    - encourage: list of encouragements
-    - skip: list of responses to skip a turn
-
-Function:
-    - typewriter(): create typewriting effect
-
 """
 
 import sys
