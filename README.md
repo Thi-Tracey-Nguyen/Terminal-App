@@ -2,7 +2,7 @@
 
 ## Links
 1. GitHub repository: https://github.com/Thi-Tracey-Nguyen/word_game
-2. Youtube presentation:  
+2. Youtube presentation: https://www.youtube.com/watch?v=DCkJDAPSUcM  
 
 ## Code guide and styling conventions  
 1. Goodger, D., Rossum, G. (2001) PEP 257 - Docstring Conventions [Styling Convention]. https://peps.python.org/pep-0257/  

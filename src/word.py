@@ -1,11 +1,7 @@
-"""This module instantiates a player's word into a word object and verifies it.
+"""Word
+This module instantiates a player's word into a word object and verifies it.
+"""
 
-Variables:
-    - english_words (set): a set of valid English words
-
-Class:
-    - Word: instantiates a valid user input into a word object and verifies it
-    """
 import os
 
 dic_path = os.path.abspath('dic.txt')
@@ -15,15 +11,7 @@ with open(dic_path, 'r', encoding='utf-8') as word_file:
 
 
 class Word:
-    """Handles word object instantiation and verification.
-    
-    Methods:
-        - __init__(self, word): used to instantiate a word object
-        - __repr__(self): used to represent a word object (developer-friendly)
-        - __str__(self): used to represent a word object (user-friendly)
-        - verify(self, rack): used to verify a word object against the player's rack
-        and checks if it is in the dictionary.
-    """
+    """Handles word object instantiation and verification."""
 
     def __init__(self, word):
         self.word = word
@@ -40,7 +28,7 @@ class Word:
 
         Args:
             rack (_list_): the rack where tiles are used from
-        
+
         Returns:
             _bool_: true if the word uses only words from the rack
             AND it is a valid English word.
@@ -49,7 +37,6 @@ class Word:
         false_letters_invalid = set()
         false_letters_too_many = set()
         rack_letter_count = {self.word[i] : rack.count(self.word[i]) for i in range(len(self.word))}
-        print('Game Referee: ', end = '')
         for letter in self.word:
             if letter not in rack:
                 false_letters_invalid.add(letter)
@@ -57,6 +44,7 @@ class Word:
                 rack_letter_count[letter] -= 1
             else:
                 false_letters_too_many.add(letter)
+        print('Game Referee: ', end = '')
         if not false_letters_too_many and not false_letters_invalid:
             if self.word.upper() in english_words:
                 print(f'{self.word} is an excellent choice.')
