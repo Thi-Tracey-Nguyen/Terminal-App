@@ -451,9 +451,9 @@ In order of priority:
 ### Steps to install
 1. Open terminal by: 
 - On Mac: pressing Command + space, type 'Terminal', hit enter
-- On window: pressing Windows key + X then click Command prompt, at the command prompt, type: 'bash' then hit Enter
-2. In the terminal, input the followings:  
-* Change the working directory to where you want to download the folder:   
+- On Window: pressing Windows key + X then click Command prompt, at the command prompt, type: 'bash' then hit Enter
+2. In the terminal, do the followings:  
+* Change the working directory to where you want to download the application folder:   
 `cd <filepath>`  
 * Clone this repository to your computer  
 `git clone https://github.com/Thi-Tracey-Nguyen/word_game`

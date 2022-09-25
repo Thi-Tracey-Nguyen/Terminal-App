@@ -19,7 +19,7 @@ letter_collection = {"A": 9, "B": 2, "C": 2, "D": 4
 , "T": 6, "U": 4, "V": 2, "W": 2, "X": 1
 , "Y": 3, "Z": 1}
 
-greetings = 'Hello! Welcome to Word Play!\n'
+greetings = 'Hello! Welcome to Word Game!\n'
 
 greetings_block_1 = """\nYou are a word enthusiast from Fancy Town who wants to beat the Jokester at a Word Game so he will stop bothering your village. But before that, you want to train with the local Word Master to see if you are up for the challenge. The Kid is the Word Master's grandson, he is cheeky and smart. He likes to interrupt his grandfather's visitors.
 """
