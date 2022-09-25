@@ -3,7 +3,7 @@
 ## Links
 1. GitHub repository: https://github.com/Thi-Tracey-Nguyen/word_game
 2. Youtube presentation: https://www.youtube.com/watch?v=DCkJDAPSUcM  
-
+3. Link to Trello Board: https://trello.com/b/vZWAkSuy/terminal-application  
 ## Code guide and styling conventions  
 1. Goodger, D., Rossum, G. (2001) PEP 257 - Docstring Conventions [Styling Convention]. https://peps.python.org/pep-0257/  
 2. Rossum, G., Warsaw, B., Coghlan, N. (2001) PEP8 - Style Guide for Python Code [Styling Convention]. https://peps.python.org/pep-0008/
@@ -174,8 +174,8 @@ In order of priority:
     </tbody>
 </table>
 
-![Trello Board](./docs/Screen%20Shot%202022-09-24%20at%208.25.06%20am.png)  
-[Link to Trello Board](https://trello.com/b/vZWAkSuy/terminal-application)  
+![Trello Board](./docs/Screen%20Shot%202022-09-24%20at%208.25.06%20am.png) 
+
 
 ### Game features  
 
@@ -342,10 +342,10 @@ In order of priority:
 
 4. Access Help
 
-* Uses ```.get_input()``` method to get user input
-* Checks user input if it is ```%help```, if True, a HelpRequired exception is raised
+* Uses `.get_input()` method to get user input
+* Checks user input if it is `%help`, if True, a HelpRequired exception is raised
 * 'Help' message is printed on the terminal. It shows valid inputs and reminds the player of high-scoring letters (J, X, Q, Z )
-* Loops back to where the player was before typing ```%help```
+* Loops back to where the player was before typing `%help`
 
 <table>
     <thead>
