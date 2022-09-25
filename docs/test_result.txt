@@ -1,0 +1,119 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 3 items
+
+test.py ...                                                              [100%]
+
+============================== 3 passed in 0.08s ===============================
+
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 3 items
+
+test.py ...                                                              [100%]
+
+============================== 3 passed in 0.09s ===============================
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 3 items
+
+test.py ...                                                              [100%]
+
+============================== 3 passed in 0.09s ===============================
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 4 items
+
+test.py ....                                                             [100%]
+
+============================== 4 passed in 0.09s ===============================
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+test
+collected 5 items
+
+test.py LIMBATE is an excellent choice.
+BIMETAL is an excellent choice.
+TIMBALE is an excellent choice.
+ALBITE is an excellent choice.
+LAMBIE is an excellent choice.
+ALBITE is an excellent choice.
+TIMBAL is an excellent choice.
+ALBEIT is an excellent choice.
+EMAIL is an excellent choice.
+TELIA is an excellent choice.
+AMBIT is an excellent choice.
+LIMBA is an excellent choice.
+TABLE is an excellent choice.
+BALM is an excellent choice.
+BLAM is an excellent choice.
+AMIE is an excellent choice.
+MABE is an excellent choice.
+ABLE is an excellent choice.
+LIB is an excellent choice.
+BAT is an excellent choice.
+MIB is an excellent choice.
+MEL is an excellent choice.
+MAT is an excellent choice.
+LI is an excellent choice.
+TA is an excellent choice.
+BA is an excellent choice.
+AM is an excellent choice.
+AT is an excellent choice.
+.{'R'} is not in your rack!
+{'G'} is not in your rack!
+{'R'} is not in your rack!
+{'P'} is not in your rack!
+{'H'} is not in your rack!
+{'U', 'N', 'Q'} are not in your rack!
+{'E'} are used too many times!
+{'K'} is not in your rack!
+{'D'} are used too many times!
+{'I'} is not in your rack!
+{'I'} is not in your rack!
+.{'O'} are used too many times!
+{'T'} are used too many times!
+{'O', 'N'} are used too many times!
+{'O'} are used too many times!
+{'L'} are used too many times!
+{'M'} are used too many times!
+.OWTS isn't a valid English word.
+SRAWLO isn't a valid English word.
+{'D'} is not in your rack!
+TORALS isn't a valid English word.
+RTSAWO isn't a valid English word.
+LS isn't a valid English word.
+ROTSLAW isn't a valid English word.
+LARTSW isn't a valid English word.
+..
+
+============================== 5 passed in 0.30s ===============================
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 6 items
+
+test.py ......                                                           [100%]
+
+============================== 6 passed in 0.20s ===============================
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 8 items
+
+test.py ........                                                         [100%]
+
+============================== 8 passed in 0.20s ===============================
+============================= test session starts ==============================
+platform darwin -- Python 3.10.6, pytest-7.1.3, pluggy-1.0.0
+rootdir: /Users/tramnguyenbichtram/Documents/Programming/Projects/term1/python/T1A3
+collected 9 items
+
+test.py .........                                                        [100%]
+
+============================== 9 passed in 0.23s ===============================

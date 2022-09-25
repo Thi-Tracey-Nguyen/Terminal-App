@@ -36,7 +36,7 @@ Choose your opponent:
 
 negative = ['You think I am silly, don\'t you?', 'You just made that up, didn\'t you?', 'Is that all you got?', 'You could have done better.', 'I thought you were better than that.']
 
-positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder the people of Fancy Town think so highly of you.', 'Well played!', 'A worthy opponent!']
+positive = ['That\'s brilliant!', 'You\'re very clever!', 'No wonder why the people of Fancy Town think so highly of you.', 'Well played!', 'A worthy opponent!']
 
 encourage = ['Now give it another go.\n', 'Don\'t give up! Try again.\n']
 
@@ -56,7 +56,7 @@ def typewriter(message):
         sys.stdout.write(letter)
         sys.stdout.flush()
         if letter != '\n':
-            sleep(0.02)
+            sleep(0.05)
         else:
-            sleep(0.2)
-            
+            sleep(0.5)
+        

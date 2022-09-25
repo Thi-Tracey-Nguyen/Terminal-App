@@ -390,6 +390,9 @@ In order of priority:
     </tbody>
 </table>
 
+![Trello board](./docs/Screen%20Shot%202022-09-24%20at%208.29.59%20am.png)
+
+
 5. Quit anytime  
 
 * Checks user input if it is `%quit`, if True, a Quit exception is raised
@@ -439,7 +442,7 @@ In order of priority:
     </tbody>
 </table>
 
-![Trello board](./docs/Screen%20Shot%202022-09-24%20at%208.29.59%20am.png)
+![Trello board](./docs/Screen%20Shot%202022-09-25%20at%201.39.03%20pm.png)
 
 ## Installation
 ### System requirements
@@ -450,12 +453,12 @@ In order of priority:
 - On Mac: pressing Command + space, type 'Terminal', hit enter
 - On window: pressing Windows key + X then click Command prompt, at the command prompt, type: 'bash' then hit Enter
 2. In the terminal, input the followings:  
+* Change the working directory to where you want to download the folder:   
+`cd <filepath>`  
 * Clone this repository to your computer  
 `git clone https://github.com/Thi-Tracey-Nguyen/word_game`
-* Change the working directory to where you downloaded the folder:   
-`cd <filepath>`  
 * Open the src directory:  
-`cd src`  
+`cd word_game/src`  
 * Allow the execution of the bash script:  
 `chmod +x word_game.sh`  
 * Run the program:  
