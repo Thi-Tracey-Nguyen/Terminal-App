@@ -574,7 +574,7 @@ tomli==2.0.1
     </tbody>
 </table>
 
-1. Test choose_character method:
+2. Test choose_character method:
 * Fake inputs to test if InvalidInput is raised
 
 <table>
